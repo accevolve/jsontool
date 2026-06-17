@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <title>JSON 校验 - 在线JSON语法检查工具 | JsonTool.cn</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="description" content="免费在线 JSON 校验工具，基于 JSONLint 标准检查 JSON 语法正确性，精确定位错误行号和原因。支持实时校验，粘贴即出结果，开发者调试 JSON 数据的必备工具。" />
+  <meta name="keywords" content="json校验,json语法检查,json校验工具,json在线校验,jsonlint,json语法校验,json验证,json检查,在线json校验工具" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+  <meta name="baidu-site-verification" content="code-K26efHPQnS" />
+  <link rel="canonical" href="https://jsontool.cn/json-validate.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="JSON 校验 - 在线JSON语法检查工具 | JsonTool.cn" />
+  <meta property="og:description" content="免费在线 JSON 校验工具，基于 JSONLint 标准检查语法正确性，精确定位错误。" />
+  <meta property="og:url" content="https://jsontool.cn/json-validate.html" />
+  <meta property="og:site_name" content="JsonTool.cn" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JSON 校验工具",
+    "url": "https://jsontool.cn/json-validate.html",
+    "description": "免费在线 JSON 语法校验工具，基于 JSONLint 标准",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CNY"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "如何在线校验 JSON 格式是否正确？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "将 JSON 数据粘贴到 JsonTool.cn 的输入框中，工具会基于 JSONLint 标准自动校验语法。如果格式正确，右侧会显示美化后的 JSON；如果存在错误，会用红色文字标注具体的错误位置和原因。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "JSON 校验常见的错误有哪些？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "常见错误包括：1) 键名未使用双引号；2) 字符串使用了单引号；3) 末尾多余逗号（trailing comma）；4) 缺少闭合的大括号或方括号；5) 使用了 JavaScript 注释；6) 特殊字符未正确转义；7) 数值格式不规范（如前导零 01）。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "JSONLint 是什么？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JSONLint 是一个广泛使用的 JSON 语法校验器，它严格按照 JSON 规范（RFC 8259）检查数据格式。本工具集成了 JSONLint 引擎，能够精确识别语法错误并给出清晰的错误描述和位置信息。"
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://jsontool.cn/"},{"@type":"ListItem","position":2,"name":"JSON 校验","item":"https://jsontool.cn/json-validate.html"}]}
+  </script>
+
+  <link rel="shortcut icon" href="/img/favicon.ico" />
+  <link rel="bookmark" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/base.v3.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?267ef29dfb3196f78212c359de75eb55";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') { bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; }
+      else { bp.src = 'http://push.zhanzhang.baidu.com/push.js'; }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/" text="Jsontool.cn">Jsontool.cn</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="/">首页</a></li>
+          <li><a href="/json-format.html">格式优化</a></li>
+          <li><a href="/json-parse.html">JSON解析</a></li>
+          <li><a href="/json-validate.html" class="active">JSON校验</a></li>
+          <li><a href="/courses/">教程</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="row-fluid">
+    <div class="col-md-5" style="padding:0;">
+      <textarea id="json-src" placeholder="在此粘贴需要校验的 JSON 数据..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;">{"name":"test","valid":true,"count":42}</textarea>
+    </div>
+    <div class="col-md-7" style="padding:0;">
+      <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
+        <a href="#" class="zip" title="压缩" data-placement="bottom"><i class="fa fa-compress"></i></a>
+        <a href="#" class="copy" title="复制" data-clipboard-target="#json-target" data-placement="bottom"><i class="fa fa-copy"></i></a>
+        <a href="#" class="clear" title="清空" data-placement="bottom"><i class="fa fa-eraser"></i></a>
+      </div>
+      <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;"></div>
+    </div>
+  </main>
+
+<script>
+  window.onload = function() {
+    var footerHeight = document.querySelector('footer').offsetHeight;
+    var navHeight = document.querySelector('nav').offsetHeight;
+    var windowHeight = window.innerHeight;
+    var mainHeight = windowHeight - (footerHeight + navHeight) + 2;
+    document.getElementById('json-src').style.height = mainHeight + 'px';
+    document.getElementById('json-target').style.height = mainHeight - 45 + 'px';
+  };
+</script>
+<script src="js/jquery.json.js"></script>
+<script src="js/jquery.xml2json.js"></script>
+<script src="js/jquery.json2xml.js"></script>
+<script>
+var current_json = '';
+var current_json_str = '';
+var zip_flag = false;
+$('#json-src').keyup(function(){
+    zip_flag = false;
+    $('.zip').attr('style','color:#999;');
+    var content = $.trim($(this).val());
+    var result = '';
+    if (content!='') {
+        try{
+            current_json = jsonlint.parse(content);
+            current_json_str = JSON.stringify(current_json);
+            result = '<span style="color:#15b374;font-weight:bold;">✓ JSON 语法校验通过</span><br><br>' + new JSONFormat(content,4).toString();
+        }catch(e){
+            result = '<span style="color:#f1592a;font-weight:bold;">✗ JSON 校验失败</span><br><br><span style="color:#f1592a;">' + e + '</span>';
+            current_json_str = '';
+        }
+        $('#json-target').html(result);
+    }else{
+        $('#json-target').html('');
+    }
+});
+$('.zip').click(function(){
+    if (zip_flag) { $('#json-src').keyup(); }
+    else if(current_json_str) { $('#json-target').html(current_json_str); zip_flag = true; $(this).attr('style','color:#15b374;'); }
+});
+var clipboard = new ClipboardJS('.copy');
+clipboard.on('success', function(e) { toastr.options.timeOut = 30; toastr.success("已复制"); e.clearSelection(); });
+clipboard.on('error', function(e) { toastr.options.timeOut = 30; toastr.error("复制失败"); });
+$('.clear').click(function(){ $('#json-src').val(''); $('#json-target').html(''); });
+$('#json-src').keyup();
+</script>
+
+<section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
+  <h1 style="font-size:22px;color:#333;margin-top:0;">JSON 在线校验工具</h1>
+  <p>JsonTool.cn 提供专业的 <strong>JSON 校验</strong>服务，基于 JSONLint 标准对 JSON 数据进行严格的语法检查。将 JSON 粘贴到输入框，工具会实时校验并标注「✓ 校验通过」或「✗ 校验失败」及具体错误信息。</p>
+
+  <h2 style="font-size:17px;color:#333;">JSON 校验规则</h2>
+  <p>本工具依据 <strong>RFC 8259</strong>（JSON 数据交换格式标准）进行校验，主要检查以下规则：</p>
+  <ul style="padding-left:20px;">
+    <li>所有键名必须使用双引号包裹</li>
+    <li>字符串值必须使用双引号（不接受单引号）</li>
+    <li>不允许尾部逗号（trailing comma）</li>
+    <li>不支持注释（// 或 /* */）</li>
+    <li>数值不允许前导零（如 01、00.5）</li>
+    <li>特殊字符必须使用反斜杠转义</li>
+    <li>大括号和方括号必须正确配对</li>
+  </ul>
+
+  <h2 style="font-size:17px;color:#333;">JSON 校验失败如何修复？</h2>
+  <ol style="padding-left:20px;">
+    <li>查看错误提示中的行号和字符位置</li>
+    <li>检查该位置附近是否存在缺少引号、多余逗号等问题</li>
+    <li>修正后重新粘贴校验，直到显示「✓ 校验通过」</li>
+    <li>如果 JSON 来自程序生成，检查序列化代码是否使用了标准库</li>
+  </ol>
+
+  <h2 style="font-size:17px;color:#333;">相关工具</h2>
+  <p><a href="/" style="color:#15b374;">JSON 在线解析</a> · <a href="/json-format.html" style="color:#15b374;">JSON 格式优化</a> · <a href="/json-parse.html" style="color:#15b374;">JSON 解析工具</a> · <a href="/json-compress.html" style="color:#15b374;">JSON 压缩</a> · <a href="/courses/beginner/json-parse-error.html" style="color:#15b374;">JSON 错误处理教程</a></p>
+</section>
+
+<footer class="fixed_footer">
+  <div id="copyright">
+    &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>, All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

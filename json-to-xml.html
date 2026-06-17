@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <title>JSON 转 XML - 在线JSON与XML互转工具 | JsonTool.cn</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="description" content="免费在线 JSON 转 XML 工具，支持 JSON 与 XML 格式双向转换。粘贴 JSON 数据一键转换为 XML，也支持 XML 转 JSON，方便开发者进行数据格式互转。" />
+  <meta name="keywords" content="json转xml,json to xml,xml转json,json xml转换,在线json转xml,json转xml工具,xml转json工具,json xml互转" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+  <meta name="baidu-site-verification" content="code-K26efHPQnS" />
+  <link rel="canonical" href="https://jsontool.cn/json-to-xml.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="JSON 转 XML - 在线JSON与XML互转工具 | JsonTool.cn" />
+  <meta property="og:description" content="免费在线 JSON 与 XML 格式双向转换工具。" />
+  <meta property="og:url" content="https://jsontool.cn/json-to-xml.html" />
+  <meta property="og:site_name" content="JsonTool.cn" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JSON 转 XML 工具",
+    "url": "https://jsontool.cn/json-to-xml.html",
+    "description": "免费在线 JSON 与 XML 格式双向转换工具",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CNY"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://jsontool.cn/"},{"@type":"ListItem","position":2,"name":"JSON 转 XML","item":"https://jsontool.cn/json-to-xml.html"}]}
+  </script>
+
+  <link rel="shortcut icon" href="/img/favicon.ico" />
+  <link rel="bookmark" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/base.v3.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js"></script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?267ef29dfb3196f78212c359de75eb55";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') { bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; }
+      else { bp.src = 'http://push.zhanzhang.baidu.com/push.js'; }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/" text="Jsontool.cn">Jsontool.cn</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="/">首页</a></li>
+          <li><a href="/json-format.html">格式优化</a></li>
+          <li><a href="/json-parse.html">JSON解析</a></li>
+          <li><a href="/json-validate.html">JSON校验</a></li>
+          <li><a href="/courses/">教程</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="row-fluid">
+    <div class="col-md-5" style="padding:0;">
+      <textarea id="json-src" placeholder="在此粘贴 JSON 或 XML 数据..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;">{"user":{"name":"张三","age":28,"skills":["JavaScript","Python"]}}</textarea>
+    </div>
+    <div class="col-md-7" style="padding:0;">
+      <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
+        <a href="#" class="to-xml-btn" title="转XML" data-placement="bottom" style="color:#15b374;"><i class="fa fa-file-excel-o"></i> 转 XML</a>
+        <a href="#" class="to-json-btn" title="转JSON" data-placement="bottom" style="margin-left:20px;"><i class="fa fa-file-code-o"></i> 转 JSON</a>
+        <a href="#" class="copy" title="复制" data-clipboard-target="#json-target" data-placement="bottom" style="margin-left:20px;"><i class="fa fa-copy"></i></a>
+        <a href="#" class="clear" title="清空" data-placement="bottom" style="margin-left:10px;"><i class="fa fa-eraser"></i></a>
+      </div>
+      <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;"></div>
+    </div>
+  </main>
+
+<script>
+  window.onload = function() {
+    var footerHeight = document.querySelector('footer').offsetHeight;
+    var navHeight = document.querySelector('nav').offsetHeight;
+    var windowHeight = window.innerHeight;
+    var mainHeight = windowHeight - (footerHeight + navHeight) + 2;
+    document.getElementById('json-src').style.height = mainHeight + 'px';
+    document.getElementById('json-target').style.height = mainHeight - 45 + 'px';
+  };
+</script>
+<script src="js/jquery.json.js"></script>
+<script src="js/jquery.xml2json.js"></script>
+<script src="js/jquery.json2xml.js"></script>
+<script>
+$('.to-xml-btn').click(function(){
+    var content = $.trim($('#json-src').val());
+    if (!content) return;
+    try{
+        var obj = jsonlint.parse(content);
+        var xml = $.json2xml(obj);
+        $('#json-target').html('<textarea style="width:100%;height:100%;border:0;resize:none;font-family:monospace;">' + xml + '</textarea>');
+    }catch(e){
+        $('#json-target').html('<span style="color:#f1592a;font-weight:bold;">' + e + '</span>');
+    }
+});
+$('.to-json-btn').click(function(){
+    var content = $.trim($('#json-src').val());
+    if (!content) return;
+    try{
+        var obj = $.xml2json(content);
+        var json = JSON.stringify(obj, null, 4);
+        $('#json-target').html('<pre style="border:0;background:transparent;margin:0;padding:0;">' + json.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>');
+    }catch(e){
+        $('#json-target').html('<span style="color:#f1592a;font-weight:bold;">XML 解析错误：' + e.message + '</span>');
+    }
+});
+var clipboard = new ClipboardJS('.copy');
+clipboard.on('success', function(e) { toastr.options.timeOut = 30; toastr.success("已复制"); e.clearSelection(); });
+clipboard.on('error', function(e) { toastr.options.timeOut = 30; toastr.error("复制失败"); });
+$('.clear').click(function(){ $('#json-src').val(''); $('#json-target').html(''); });
+</script>
+
+<section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
+  <h1 style="font-size:22px;color:#333;margin-top:0;">JSON 转 XML 在线工具</h1>
+  <p>JsonTool.cn 提供免费的 <strong>JSON 转 XML</strong> 在线转换服务。将 JSON 数据粘贴到左侧输入框，点击「转 XML」按钮即可获得对应的 XML 格式数据。同时支持 <strong>XML 转 JSON</strong> 的反向转换。</p>
+
+  <h2 style="font-size:17px;color:#333;">JSON 与 XML 的区别</h2>
+  <ul style="padding-left:20px;">
+    <li><strong>语法差异</strong>：JSON 使用键值对和数组，XML 使用标签嵌套</li>
+    <li><strong>可读性</strong>：JSON 更简洁，XML 更严格和自描述</li>
+    <li><strong>体积</strong>：同样的数据，JSON 通常比 XML 小 30% 以上</li>
+    <li><strong>应用场景</strong>：JSON 主导 Web API，XML 常见于企业级系统、配置文件和 SOAP 协议</li>
+  </ul>
+
+  <h2 style="font-size:17px;color:#333;">相关工具</h2>
+  <p><a href="/" style="color:#15b374;">JSON 在线解析</a> · <a href="/json-format.html" style="color:#15b374;">JSON 格式优化</a> · <a href="/json-parse.html" style="color:#15b374;">JSON 解析工具</a> · <a href="/json-validate.html" style="color:#15b374;">JSON 校验</a> · <a href="/json-compress.html" style="color:#15b374;">JSON 压缩</a></p>
+</section>
+
+<footer class="fixed_footer">
+  <div id="copyright">
+    &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>, All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

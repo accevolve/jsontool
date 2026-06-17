@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jsontool.cn/sitemap.xml
