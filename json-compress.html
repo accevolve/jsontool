@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <title>JSON 压缩 - 在线JSON数据压缩工具 | JsonTool.cn</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="description" content="免费在线 JSON 压缩工具，一键去除 JSON 数据中的空格、换行、缩进，将 JSON 压缩为最小体积，适用于网络传输和存储优化。" />
+  <meta name="keywords" content="json压缩,json压缩工具,json在线压缩,json最小化,json minify,json去空格,json数据压缩,在线json压缩" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+  <meta name="baidu-site-verification" content="code-K26efHPQnS" />
+  <link rel="canonical" href="https://jsontool.cn/json-compress.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="JSON 压缩 - 在线JSON数据压缩工具 | JsonTool.cn" />
+  <meta property="og:description" content="免费在线 JSON 压缩工具，一键去除空格换行，将 JSON 压缩为最小体积。" />
+  <meta property="og:url" content="https://jsontool.cn/json-compress.html" />
+  <meta property="og:site_name" content="JsonTool.cn" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JSON 压缩工具",
+    "url": "https://jsontool.cn/json-compress.html",
+    "description": "免费在线 JSON 数据压缩工具",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CNY"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://jsontool.cn/"},{"@type":"ListItem","position":2,"name":"JSON 压缩","item":"https://jsontool.cn/json-compress.html"}]}
+  </script>
+
+  <link rel="shortcut icon" href="/img/favicon.ico" />
+  <link rel="bookmark" href="/img/favicon.ico" type="image/x-icon" />
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/base.v3.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js"></script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?267ef29dfb3196f78212c359de75eb55";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') { bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; }
+      else { bp.src = 'http://push.zhanzhang.baidu.com/push.js'; }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/" text="Jsontool.cn">Jsontool.cn</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="/">首页</a></li>
+          <li><a href="/json-format.html">格式优化</a></li>
+          <li><a href="/json-parse.html">JSON解析</a></li>
+          <li><a href="/json-validate.html">JSON校验</a></li>
+          <li><a href="/courses/">教程</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="row-fluid">
+    <div class="col-md-5" style="padding:0;">
+      <textarea id="json-src" placeholder="在此粘贴需要压缩的 JSON 数据..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;">{
+    "name": "JsonTool",
+    "version": "3.0",
+    "features": [
+        "格式化",
+        "校验",
+        "压缩"
+    ]
+}</textarea>
+    </div>
+    <div class="col-md-7" style="padding:0;">
+      <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
+        <a href="#" class="compress-btn" title="压缩" data-placement="bottom" style="color:#15b374;"><i class="fa fa-compress"></i> 压缩</a>
+        <a href="#" class="format-btn" title="格式化" data-placement="bottom" style="margin-left:20px;"><i class="fa fa-indent"></i> 格式化</a>
+        <a href="#" class="copy" title="复制" data-clipboard-target="#json-target" data-placement="bottom" style="margin-left:20px;"><i class="fa fa-copy"></i></a>
+        <a href="#" class="clear" title="清空" data-placement="bottom" style="margin-left:10px;"><i class="fa fa-eraser"></i></a>
+      </div>
+      <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;font-family:monospace;"></div>
+    </div>
+  </main>
+
+<script>
+  window.onload = function() {
+    var footerHeight = document.querySelector('footer').offsetHeight;
+    var navHeight = document.querySelector('nav').offsetHeight;
+    var windowHeight = window.innerHeight;
+    var mainHeight = windowHeight - (footerHeight + navHeight) + 2;
+    document.getElementById('json-src').style.height = mainHeight + 'px';
+    document.getElementById('json-target').style.height = mainHeight - 45 + 'px';
+  };
+</script>
+<script src="js/jquery.json.js"></script>
+<script>
+$('#json-src').keyup(function(){
+    var content = $.trim($(this).val());
+    if (content!='') {
+        try{
+            var obj = jsonlint.parse(content);
+            var compressed = JSON.stringify(obj);
+            var original = content.length;
+            var after = compressed.length;
+            var ratio = ((1 - after/original) * 100).toFixed(1);
+            $('#json-target').html('<span style="color:#15b374;font-weight:bold;">压缩结果（节省 ' + ratio + '%）</span><br><br><code style="word-break:break-all;">' + compressed.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</code>');
+        }catch(e){
+            $('#json-target').html('<span style="color:#f1592a;font-weight:bold;">' + e + '</span>');
+        }
+    }else{
+        $('#json-target').html('');
+    }
+});
+$('.compress-btn').click(function(){ $('#json-src').keyup(); });
+$('.format-btn').click(function(){
+    var content = $.trim($('#json-src').val());
+    if (content!='') {
+        try{
+            jsonlint.parse(content);
+            $('#json-target').html(new JSONFormat(content,4).toString());
+        }catch(e){
+            $('#json-target').html('<span style="color:#f1592a;font-weight:bold;">' + e + '</span>');
+        }
+    }
+});
+var clipboard = new ClipboardJS('.copy');
+clipboard.on('success', function(e) { toastr.options.timeOut = 30; toastr.success("已复制"); e.clearSelection(); });
+clipboard.on('error', function(e) { toastr.options.timeOut = 30; toastr.error("复制失败"); });
+$('.clear').click(function(){ $('#json-src').val(''); $('#json-target').html(''); });
+$('#json-src').keyup();
+</script>
+
+<section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
+  <h1 style="font-size:22px;color:#333;margin-top:0;">JSON 在线压缩工具</h1>
+  <p><strong>JSON 压缩</strong>（JSON Minify）是指去除 JSON 数据中的所有不必要字符（空格、换行、制表符、缩进），将其转换为单行最小体积格式。压缩后的 JSON 数据占用更少的存储空间和网络带宽，适用于 API 传输、数据存储等场景。</p>
+
+  <h2 style="font-size:17px;color:#333;">为什么要压缩 JSON？</h2>
+  <ul style="padding-left:20px;">
+    <li><strong>减少传输体积</strong>：压缩后的 JSON 通常可减少 30%-60% 的字符数</li>
+    <li><strong>加快网络传输</strong>：更小的数据包意味着更快的 API 响应速度</li>
+    <li><strong>节省存储空间</strong>：在数据库或缓存中存储压缩 JSON 可降低存储成本</li>
+    <li><strong>提升页面性能</strong>：内嵌在 HTML 中的 JSON 配置数据压缩后可加快页面加载</li>
+  </ul>
+
+  <h2 style="font-size:17px;color:#333;">相关工具</h2>
+  <p><a href="/" style="color:#15b374;">JSON 在线解析</a> · <a href="/json-format.html" style="color:#15b374;">JSON 格式优化</a> · <a href="/json-parse.html" style="color:#15b374;">JSON 解析工具</a> · <a href="/json-validate.html" style="color:#15b374;">JSON 校验</a> · <a href="/courses/" style="color:#15b374;">JSON 教程</a></p>
+</section>
+
+<footer class="fixed_footer">
+  <div id="copyright">
+    &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>, All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

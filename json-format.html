@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <title>JSON 格式优化 - 在线JSON格式化美化工具 | JsonTool.cn</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="description" content="免费在线 JSON 格式优化工具，一键格式化、美化、压缩 JSON 数据。支持语法高亮、缩进调整、节点折叠，帮助开发者快速优化 JSON 格式，提升数据可读性。" />
+  <meta name="keywords" content="json格式优化,json格式化,json美化,json格式化工具,json在线格式化,json格式整理,json缩进,json优化工具,在线json美化" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+  <meta name="baidu-site-verification" content="code-K26efHPQnS" />
+  <link rel="canonical" href="https://jsontool.cn/json-format.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="JSON 格式优化 - 在线JSON格式化美化工具 | JsonTool.cn" />
+  <meta property="og:description" content="免费在线 JSON 格式优化工具，一键格式化、美化、压缩 JSON 数据。" />
+  <meta property="og:url" content="https://jsontool.cn/json-format.html" />
+  <meta property="og:site_name" content="JsonTool.cn" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JSON 格式优化工具",
+    "url": "https://jsontool.cn/json-format.html",
+    "description": "免费在线 JSON 格式优化、格式化、美化工具",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "CNY"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "什么是 JSON 格式优化？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JSON 格式优化是指将压缩或不规范的 JSON 数据转换为具有标准缩进、换行和语法高亮的可读格式。优化后的 JSON 更易于阅读、调试和维护。常见的优化操作包括：自动缩进、键值对对齐、语法校验、去除多余空白等。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "如何在线优化 JSON 格式？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "使用 JsonTool.cn 在线工具，只需将 JSON 数据粘贴到左侧输入框，工具会自动对 JSON 进行格式优化，在右侧显示带语法高亮、缩进层级的美化结果。支持一键压缩、复制、转换 XML 等操作。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "JSON 格式优化和 JSON 格式化有什么区别？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "两者基本相同。JSON 格式化通常指将压缩的 JSON 添加缩进和换行使其可读；JSON 格式优化在此基础上还包含语法校验、错误修正、结构检查等操作，是更完整的格式处理流程。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "JSON 格式优化工具支持哪些功能？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JsonTool.cn 的 JSON 格式优化工具支持：1) JSON 格式化与美化；2) JSON 语法校验与错误提示；3) JSON 压缩（去除空格换行）；4) JSON 转 XML；5) 节点展开折叠；6) 一键复制结果。"
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://jsontool.cn/"},
+      {"@type": "ListItem", "position": 2, "name": "JSON 格式优化", "item": "https://jsontool.cn/json-format.html"}
+    ]
+  }
+  </script>
+
+  <link rel="shortcut icon" href="/img/favicon.ico" />
+  <link rel="bookmark" href="/img/favicon.ico" type="image/x-icon" />
+
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/base.v3.css" />
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?267ef29dfb3196f78212c359de75eb55";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') { bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; }
+      else { bp.src = 'http://push.zhanzhang.baidu.com/push.js'; }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/" text="Jsontool.cn">Jsontool.cn</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="/">首页</a></li>
+          <li><a href="/json-format.html" class="active">格式优化</a></li>
+          <li><a href="/json-parse.html">JSON解析</a></li>
+          <li><a href="/courses/">教程</a></li>
+          <li><a href="mailto:jsontool@163.com">投诉/建议</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="row-fluid">
+    <div class="col-md-5" style="padding:0;">
+      <textarea id="json-src" placeholder="在此粘贴需要格式优化的 JSON 数据..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;">{"name":"JsonTool","version":"3.0","features":["格式化","校验","压缩","美化","转XML"],"free":true}</textarea>
+    </div>
+    <div class="col-md-7" style="padding:0;">
+      <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
+        <a href="#" class="zip" title="压缩" data-placement="bottom"><i class="fa fa-compress"></i></a>
+        <a href="#" class="xml" title="转XML" data-placement="bottom"><i class="fa fa-file-excel-o"></i></a>
+        <a href="#" class="copy" title="复制" data-clipboard-target="#json-target" data-placement="bottom"><i class="fa fa-copy"></i></a>
+        <a href="#" class="clear" title="清空" data-placement="bottom"><i class="fa fa-eraser"></i></a>
+      </div>
+      <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;"></div>
+    </div>
+  </main>
+
+<script>
+  window.onload = function() {
+    var footerHeight = document.querySelector('footer').offsetHeight;
+    var navHeight = document.querySelector('nav').offsetHeight;
+    var windowHeight = window.innerHeight;
+    var mainHeight = windowHeight - (footerHeight + navHeight) + 2;
+    document.getElementById('json-src').style.height = mainHeight + 'px';
+    document.getElementById('json-target').style.height = mainHeight - 45 + 'px';
+  };
+</script>
+
+<script defer src="js/jquery.json.js"></script>
+<script defer src="js/jquery.xml2json.js"></script>
+<script defer src="js/jquery.json2xml.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var current_json = '';
+  var current_json_str = '';
+  var xml_flag = false;
+  var zip_flag = false;
+  function init(){
+    xml_flag = false;
+    zip_flag = false;
+    $('.xml').attr('style','color:#999;');
+    $('.zip').attr('style','color:#999;');
+  }
+  $('#json-src').keyup(function(){
+    init();
+    var content = $.trim($(this).val());
+    var result = '';
+    if (content!='') {
+      if (content.substr(0,1) === '<' && content.substr(-1,1) === '>') {
+        try{
+          var json_obj = $.xml2json(content);
+          content = JSON.stringify(json_obj);
+        }catch(e){
+          result = '解析错误：<span style="color:#f1592a;font-weight:bold;">' + e.message + '</span>';
+          current_json_str = result;
+          $('#json-target').html(result);
+          return false;
+        }
+      }
+      try{
+        current_json = jsonlint.parse(content);
+        current_json_str = JSON.stringify(current_json);
+        result = new JSONFormat(content,4).toString();
+      }catch(e){
+        result = '<span style="color:#f1592a;font-weight:bold;">' + e + '</span>';
+        current_json_str = result;
+      }
+      $('#json-target').html(result);
+    }else{
+      $('#json-target').html('');
+    }
+  });
+  $('.zip').click(function(){
+    if (zip_flag) { $('#json-src').keyup(); }
+    else { $('#json-target').html(current_json_str); zip_flag = true; $(this).attr('style','color:#15b374;'); }
+  });
+  $('.xml').click(function(){
+    if (xml_flag) { $('#json-src').keyup(); }
+    else {
+      var result = $.json2xml(current_json);
+      $('#json-target').html('<textarea style="width:100%;height:100%;border:0;resize:none;">'+result+'</textarea>');
+      xml_flag = true; $(this).attr('style','color:#15b374;');
+    }
+  });
+  var clipboard = new ClipboardJS('.copy');
+  clipboard.on('success', function(e) { toastr.options.timeOut = 30; toastr.success("已复制"); e.clearSelection(); });
+  clipboard.on('error', function(e) { toastr.options.timeOut = 30; toastr.error("复制失败"); });
+  $('.clear').click(function(){ $('#json-src').val(''); $('#json-target').html(''); });
+  $('#json-src').keyup();
+});
+</script>
+
+<section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
+  <h1 style="font-size:22px;color:#333;margin-top:0;">JSON 格式优化工具</h1>
+  <p><strong>JSON 格式优化</strong>是开发过程中的常见需求。当你从 API 接口获取到压缩的 JSON 响应数据，或者需要检查配置文件中的 JSON 格式是否正确时，一个好用的 JSON 格式优化工具能极大提高效率。</p>
+
+  <h2 style="font-size:17px;color:#333;">什么是 JSON 格式优化？</h2>
+  <p>JSON 格式优化是指将杂乱、压缩或不规范的 JSON 数据，通过自动缩进、换行、语法校验等操作，转换为结构清晰、易于阅读的标准格式。优化后的 JSON 数据不仅方便人工阅读，也有助于排查数据错误和调试接口问题。</p>
+
+  <h2 style="font-size:17px;color:#333;">如何使用本工具进行 JSON 格式优化</h2>
+  <ol style="padding-left:20px;">
+    <li>将待优化的 JSON 字符串粘贴到左侧输入框</li>
+    <li>工具自动执行格式优化，右侧实时显示美化结果</li>
+    <li>如需压缩 JSON，点击顶部压缩按钮</li>
+    <li>支持一键复制优化后的 JSON 数据</li>
+  </ol>
+
+  <h2 style="font-size:17px;color:#333;">JSON 格式优化的应用场景</h2>
+  <ul style="padding-left:20px;">
+    <li><strong>API 调试</strong>：将接口返回的压缩 JSON 格式化为可读结构，快速定位数据问题</li>
+    <li><strong>配置文件检查</strong>：校验 package.json、tsconfig.json 等配置文件格式是否正确</li>
+    <li><strong>数据分析</strong>：格式化大型 JSON 数据集，方便浏览和分析数据结构</li>
+    <li><strong>文档编写</strong>：将 JSON 示例美化后嵌入技术文档</li>
+    <li><strong>代码审查</strong>：统一 JSON 格式风格，提高代码可读性</li>
+  </ul>
+
+  <h2 style="font-size:17px;color:#333;">相关工具</h2>
+  <p>除 JSON 格式优化外，JsonTool.cn 还提供 <a href="/" style="color:#15b374;">JSON 在线解析</a>、<a href="/json-parse.html" style="color:#15b374;">JSON 解析工具</a>、<a href="/courses/" style="color:#15b374;">JSON 入门教程</a> 等功能，满足开发者对 JSON 数据处理的各类需求。</p>
+</section>
+
+<footer class="fixed_footer">
+  <div id="copyright">
+    &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>, All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

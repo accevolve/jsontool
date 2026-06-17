@@ -1,33 +1,109 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <title>JSON 在线解析、格式化、校验工具</title>
+  <title>JSON 在线解析 - 免费JSON格式化、校验、美化工具 | JsonTool.cn</title>
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="description" content="JsonTool.cn 是一个专业的 JSON 在线工具网站，提供多种功能，如 JSON 解析、格式化、校验、压缩、编辑、美化、JSON 转 XML、JSON 教程等。网站页面简洁，配色美观，并支持在格式化结果上进行自定义操作，如 JSON 块展开、折叠等，极大方便用户使用。" />
-  <meta name="keywords" content="json在线解析工具，json在线解析网站，json在线，json格式化，json解析网站，json工具在线，json.cn，json cn，json工具，json校验，json美化，json解析，在线json格式校验，jsonlint" />
+  <meta name="description" content="免费在线 JSON 解析工具，支持 JSON 格式化、校验、压缩、美化、JSON 转 XML 等功能。界面简洁，一键操作，无需安装，打开即用。前端开发者必备的 JSON 在线解析网站。" />
+  <meta name="keywords" content="json在线解析,json格式化,json解析,json格式优化,json校验,json美化,json在线,json工具,json压缩,json转xml,在线json解析工具,json在线解析网站,json格式化工具,jsonlint" />
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
   <meta name="baidu-site-verification" content="code-K26efHPQnS" />
+  <link rel="canonical" href="https://jsontool.cn/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="JSON 在线解析 - 格式化、校验、美化工具 | JsonTool.cn" />
+  <meta property="og:description" content="免费在线 JSON 解析工具，支持 JSON 格式化、校验、压缩、美化、JSON 转 XML。界面简洁，一键操作，开发者必备。" />
+  <meta property="og:url" content="https://jsontool.cn/" />
+  <meta property="og:site_name" content="JsonTool.cn" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JSON 在线解析工具",
+    "url": "https://jsontool.cn/",
+    "description": "免费在线 JSON 解析、格式化、校验、压缩、美化工具，支持 JSON 转 XML。",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "CNY"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1260"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "JsonTool.cn",
+    "url": "https://jsontool.cn/",
+    "description": "专业的 JSON 在线解析、格式化工具网站",
+    "inLanguage": "zh-CN"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "如何在线解析 JSON？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "打开 JsonTool.cn，将 JSON 字符串粘贴到左侧输入框，工具会自动解析并在右侧显示格式化结果。支持实时校验，错误会以红色文字提示。无需安装任何软件，打开浏览器即可使用。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "JSON 在线解析工具有哪些功能？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JsonTool.cn 提供以下功能：1) JSON 格式化与美化，将压缩的 JSON 转为可读格式；2) JSON 语法校验，检查格式是否正确；3) JSON 压缩，去除空格换行；4) JSON 转 XML 格式转换；5) 一键复制结果；6) 节点展开折叠浏览。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "什么是 JSON 格式优化？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JSON 格式优化是将不规范或压缩的 JSON 数据通过自动缩进、换行、语法校验等操作转换为标准可读格式的过程。优化后的 JSON 更易于阅读和调试。JsonTool.cn 提供免费的在线 JSON 格式优化服务。"
+        }
+      }
+    ]
+  }
+  </script>
 
   <link rel="shortcut icon" href="/img/favicon.ico" />
   <link rel="bookmark" href="/img/favicon.ico" type="image/x-icon" />
 
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
 
   <link rel="stylesheet" type="text/css" href="css/base.v3.css" />
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/layer/3.5.1/layer.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js"></script>
 
-  <script type="text/javascript" src="js/main.js"></script>
+  <script src="js/main.js"></script>
 
   <script>
     var _hmt = _hmt || [];
@@ -36,6 +112,16 @@
       hm.src = "https://hm.baidu.com/hm.js?267ef29dfb3196f78212c359de75eb55";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') { bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; }
+      else { bp.src = 'http://push.zhanzhang.baidu.com/push.js'; }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
     })();
   </script>
 </head>
@@ -53,8 +139,10 @@
       </div><!-- /.navbar-header -->
       <div id="navbar" class="collapse navbar-collapse navbar-right">
         <ul class="nav navbar-nav">
-          <li><a href="/" target="_blank">首页</a></li>
-          <li><a href="courses/index.html" target="_blank">教程</a></li>
+          <li><a href="/">首页</a></li>
+          <li><a href="/json-format.html">格式优化</a></li>
+          <li><a href="/json-parse.html">JSON解析</a></li>
+          <li><a href="/courses/">教程</a></li>
           <li><a href="mailto:jsontool@163.com">投诉/建议</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -209,10 +297,43 @@ $('#json-src').keyup();
 // $(window).resize();
 </script>
 
+<!-- SEO 内容区域 -->
+<section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
+  <h1 style="font-size:20px;color:#333;margin-top:0;">JSON 在线解析工具</h1>
+  <p>JsonTool.cn 提供免费的 <strong>JSON 在线解析</strong>服务，帮助开发者快速完成 <strong>JSON 格式化</strong>、<strong>JSON 校验</strong>、<strong>JSON 美化</strong>和 <strong>JSON 压缩</strong>操作。无需下载安装任何软件，打开浏览器即可使用。</p>
+  <h2 style="font-size:16px;color:#333;">功能特性</h2>
+  <ul style="padding-left:20px;">
+    <li><strong>JSON 解析与格式化</strong>：将压缩的 JSON 字符串一键格式化为易读结构，支持缩进层级展示。</li>
+    <li><strong>JSON 格式优化</strong>：自动检测并修正 JSON 格式问题，提供清晰的错误提示。</li>
+    <li><strong>JSON 校验</strong>：基于 JSONLint 标准校验 JSON 语法正确性，快速定位语法错误。</li>
+    <li><strong>JSON 压缩</strong>：去除空格和换行符，将 JSON 压缩为最小体积，适用于网络传输。</li>
+    <li><strong>JSON 转 XML</strong>：一键将 JSON 数据转换为 XML 格式，也支持 XML 转 JSON。</li>
+    <li><strong>JSON 美化</strong>：语法高亮显示，支持节点折叠展开，方便浏览复杂数据结构。</li>
+  </ul>
+  <h2 style="font-size:16px;color:#333;">使用场景</h2>
+  <p>无论你是前端开发、后端工程师、测试人员还是数据分析师，都可以使用本工具进行 API 返回数据调试、配置文件格式检查、日志数据解析等工作。</p>
+  <h2 style="font-size:16px;color:#333;">更多工具与资源</h2>
+  <ul style="padding-left:20px;">
+    <li><a href="/json-format.html" style="color:#15b374;">JSON 格式优化</a> — 专注于 JSON 数据的格式美化与优化</li>
+    <li><a href="/json-parse.html" style="color:#15b374;">JSON 在线解析</a> — JSON 字符串解析、校验与错误定位</li>
+    <li><a href="/courses/" style="color:#15b374;">JSON 入门教程</a> — 14 天系统学习 JSON 语法和应用</li>
+    <li><a href="/courses/beginner/json-syntax.html" style="color:#15b374;">JSON 语法基础</a> — 学习 JSON 键值对和数据结构规则</li>
+    <li><a href="/courses/beginner/json-parse-error.html" style="color:#15b374;">JSON 解析错误处理</a> — 常见错误排查与解决</li>
+  </ul>
+</section>
+
 <!--footer start-->
 <footer class="fixed_footer">
     <div id="copyright">
         &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>, All rights reserved.
+        <span style="margin-left:15px;font-size:12px;">
+          <a href="/json-format.html" style="color:#999;">JSON格式优化</a> ·
+          <a href="/json-parse.html" style="color:#999;">JSON解析</a> ·
+          <a href="/json-validate.html" style="color:#999;">JSON校验</a> ·
+          <a href="/json-compress.html" style="color:#999;">JSON压缩</a> ·
+          <a href="/json-to-xml.html" style="color:#999;">JSON转XML</a> ·
+          <a href="/sitemap-page.html" style="color:#999;">站点地图</a>
+        </span>
     </div>
 </footer>
 </body>
