@@ -123,7 +123,7 @@
 
   <main class="row-fluid">
     <div class="col-md-5" style="padding:0;">
-      <textarea id="json-src" placeholder="在此粘贴需要校验的 JSON 数据..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;">{"name":"test","valid":true,"count":42}</textarea>
+      <textarea id="json-src" placeholder="在此粘贴需要校验的 JSON 数据..." class="form-control" style="height:calc(100vh - 90px);padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;">{"name":"test","valid":true,"count":42}</textarea>
     </div>
     <div class="col-md-7" style="padding:0;">
       <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
@@ -131,20 +131,10 @@
         <a href="#" class="copy" title="复制" data-clipboard-target="#json-target" data-placement="bottom"><i class="fa fa-copy"></i></a>
         <a href="#" class="clear" title="清空" data-placement="bottom"><i class="fa fa-eraser"></i></a>
       </div>
-      <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;"></div>
+      <div id="json-target" style="height:calc(100vh - 135px);padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;"></div>
     </div>
   </main>
 
-<script>
-  window.onload = function() {
-    var footerHeight = document.querySelector('footer').offsetHeight;
-    var navHeight = document.querySelector('nav').offsetHeight;
-    var windowHeight = window.innerHeight;
-    var mainHeight = windowHeight - (footerHeight + navHeight) + 2;
-    document.getElementById('json-src').style.height = mainHeight + 'px';
-    document.getElementById('json-target').style.height = mainHeight - 45 + 'px';
-  };
-</script>
 <script src="js/jquery.json.js"></script>
 <script src="js/jquery.xml2json.js"></script>
 <script src="js/jquery.json2xml.js"></script>
@@ -182,7 +172,7 @@ $('.clear').click(function(){ $('#json-src').val(''); $('#json-target').html('')
 $('#json-src').keyup();
 </script>
 
-<section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
+<section class="seo-content" style="visibility:hidden;padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
   <h1 style="font-size:22px;color:#333;margin-top:0;">JSON 在线校验工具</h1>
   <p>JsonTool.cn 提供专业的 <strong>JSON 校验</strong>服务，基于 JSONLint 标准对 JSON 数据进行严格的语法检查。将 JSON 粘贴到输入框，工具会实时校验并标注「✓ 校验通过」或「✗ 校验失败」及具体错误信息。</p>
 

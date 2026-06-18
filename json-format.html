@@ -142,7 +142,7 @@
 
   <main class="row-fluid">
     <div class="col-md-5" style="padding:0;">
-      <textarea id="json-src" placeholder="在此粘贴需要格式优化的 JSON 数据..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;">{"name":"JsonTool","version":"3.0","features":["格式化","校验","压缩","美化","转XML"],"free":true}</textarea>
+      <textarea id="json-src" placeholder="在此粘贴需要格式优化的 JSON 数据..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;height:calc(100vh - 90px);">{"name":"JsonTool","version":"3.0","features":["格式化","校验","压缩","美化","转XML"],"free":true}</textarea>
     </div>
     <div class="col-md-7" style="padding:0;">
       <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
@@ -151,20 +151,9 @@
         <a href="#" class="copy" title="复制" data-clipboard-target="#json-target" data-placement="bottom"><i class="fa fa-copy"></i></a>
         <a href="#" class="clear" title="清空" data-placement="bottom"><i class="fa fa-eraser"></i></a>
       </div>
-      <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;"></div>
+      <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;height:calc(100vh - 135px);"></div>
     </div>
   </main>
-
-<script>
-  window.onload = function() {
-    var footerHeight = document.querySelector('footer').offsetHeight;
-    var navHeight = document.querySelector('nav').offsetHeight;
-    var windowHeight = window.innerHeight;
-    var mainHeight = windowHeight - (footerHeight + navHeight) + 2;
-    document.getElementById('json-src').style.height = mainHeight + 'px';
-    document.getElementById('json-target').style.height = mainHeight - 45 + 'px';
-  };
-</script>
 
 <script defer src="js/jquery.json.js"></script>
 <script defer src="js/jquery.xml2json.js"></script>
@@ -230,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
+<section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;visibility:hidden;">
   <h1 style="font-size:22px;color:#333;margin-top:0;">JSON 格式优化工具</h1>
   <p><strong>JSON 格式优化</strong>是开发过程中的常见需求。当你从 API 接口获取到压缩的 JSON 响应数据，或者需要检查配置文件中的 JSON 格式是否正确时，一个好用的 JSON 格式优化工具能极大提高效率。</p>
 
