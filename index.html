@@ -142,7 +142,7 @@
 <!-- <link href="css/base.css" rel="stylesheet" /> -->
 
   <!-- 主要内容区域 -->
-  <main class="row-fluid">
+  <main class="row-fluid" style="overflow:hidden;">
       <!-- 左边文本框 -->
       <div class="col-md-5" style="padding:0;">
           <textarea id="json-src" placeholder="在此输入json字符串或XML字符串..." class="form-control"  style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize: none; outline:none;height:calc(100vh - 90px);">{"i":200,"str":"ok"}</textarea>
@@ -156,7 +156,7 @@
               <a href="#" class="clear" title="清空"  data-placement="bottom"><i class="fa fa-eraser"></i></a>
               <a href="#" class="fullScreen" title="全屏" data-placement="bottom" style="cursor:no-drop;"><i class="fa fa-arrows-alt"></i></a>
           </div>
-          <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize: none;overflow-y:scroll; outline:none;height:calc(100vh - 135px);">
+          <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize: none;overflow-y:auto; outline:none;height:calc(100vh - 135px);">
           </div>
           <!-- <form id="form-save" method="POST"><input type="hidden" value="" id="txt-content" name="content"></form> -->
       </div>
