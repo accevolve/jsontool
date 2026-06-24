@@ -103,7 +103,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
 
-  <link rel="stylesheet" type="text/css" href="css/base.v3.css" />
+  <link rel="stylesheet" type="text/css" href="css/base.v3.css?v=2" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
@@ -159,13 +159,18 @@
       </div>
       <!-- 右边文本框和功能按钮 -->
       <div class="col-md-7" style="padding:0;">
-          <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
-              <a href="#" class="zip" title="压缩"  data-placement="bottom"><i class="fa fa-compress"></i></a>
-              <a href="#" class="xml" title="转XML"  data-placement="bottom"><i class="fa fa-file-excel-o"></i></a>
-              <a href="#" class="copy" title="复制" data-clipboard-target="#json-target" data-placement="bottom"><i class="fa fa-copy"></i></a>
-              <a href="#" class="clear" title="清空"  data-placement="bottom"><i class="fa fa-eraser"></i></a>
-              <a href="#" class="fullScreen" title="全屏" data-placement="bottom" style="cursor:no-drop;"><i class="fa fa-arrows-alt"></i></a>
-          </div>
+                <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
+        <a href="#" class="copy" data-tip="复制" aria-label="复制" data-clipboard-target="#json-target"><i class="fa fa-copy"></i></a>
+        <a href="#" class="zip" data-tip="压缩" aria-label="压缩"><i class="fa fa-compress"></i></a>
+        <a href="#" class="repair" data-tip="一键修复" aria-label="一键修复"><i class="fa fa-magic"></i></a>
+        <a href="#" class="unescape" data-tip="去除转义" aria-label="去除转义"><i class="fa fa-unlink"></i></a>
+        <a href="#" class="escape" data-tip="转义字符串" aria-label="转义字符串"><i class="fa fa-link"></i></a>
+        <a href="#" class="uni-decode" data-tip="Unicode解码" aria-label="Unicode解码"><i class="fa fa-language"></i></a>
+        <a href="#" class="uni-encode" data-tip="Unicode编码" aria-label="Unicode编码"><i class="fa fa-font"></i></a>
+        <a href="#" class="xml" data-tip="转XML" aria-label="转XML"><i class="fa fa-file-excel-o"></i></a>
+        <a href="#" class="clear" data-tip="清空" aria-label="清空"><i class="fa fa-eraser"></i></a>
+        <input id="json-search" type="text" placeholder="搜索结果…" style="float:right;font-size:13px;padding:2px 8px;border:1px solid #ddd;border-radius:3px;outline:none;width:150px;" />
+      </div>
           <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize: none;overflow-y:auto; outline:none;height:calc(100vh - 135px);">
           </div>
           <!-- <form id="form-save" method="POST"><input type="hidden" value="" id="txt-content" name="content"></form> -->
@@ -174,117 +179,13 @@
 
 
 
-<script src="js/jquery.json.js"></script>
-<script src="js/jquery.xml2json.js"></script>
-<script src="js/jquery.json2xml.js"></script>
-<script type="text/javascript">
-var current_json = '';
-var current_json_str = '';
-var xml_flag = false;
-var zip_flag = false;
-function init(){
-    xml_flag = false;
-    zip_flag = false;
-    $('.xml').attr('style','color:#999;');
-    $('.zip').attr('style','color:#999;');
-}
-$('#json-src').keyup(function(){
-    init();
-    var content = $.trim($(this).val());
-    var result = '';
-    if (content!='') {
-        //如果是xml,那么转换为json
-        if (content.substr(0,1) === '<' && content.substr(-1,1) === '>') {
-            try{
-                var json_obj = $.xml2json(content);
-                content = JSON.stringify(json_obj);
-            }catch(e){
-                result = '解析错误：<span style="color: #f1592a;font-weight:bold;">' + e.message + '</span>';
-                current_json_str = result;
-                $('#json-target').html(result);
-                return false;
-            }
-
-        }
-        try{
-            current_json = jsonlint.parse(content);
-            current_json_str = JSON.stringify(current_json);
-            //current_json = JSON.parse(content);
-            result = new JSONFormat(content,4).toString();
-        }catch(e){
-            result = '<span style="color: #f1592a;font-weight:bold;">' + e + '</span>';
-            current_json_str = result;
-        }
-
-        $('#json-target').html(result);
-    }else{
-        $('#json-target').html('');
-    }
-
-});
-$('.zip').click(function(){
-    if (zip_flag) {
-        $('#json-src').keyup();
-    }else{
-        $('#json-target').html(current_json_str);
-        zip_flag = true;
-        $(this).attr('style','color:#15b374;');
-    }
-});
-$('.xml').click(function(){
-    if (xml_flag) {
-        $('#json-src').keyup();
-    }else{
-        var result = $.json2xml(current_json);
-        $('#json-target').html('<textarea style="width:100%;height:100%;border:0;resize:none;">'+result+'</textarea>');
-        xml_flag = true;
-        $(this).attr('style','color:#15b374;');
-    }
-
-});
-var clipboard = new ClipboardJS('.copy');
-clipboard.on('success', function(e) {
-    toastr.options.timeOut = 30;
-    toastr.success("已复制");
-    e.clearSelection();
-});
-clipboard.on('error', function(e) {
-    toastr.options.timeOut = 30;
-    toastr.error("复制失败");
-});
-// $('.copy').click(function () {
-//     $.msg("成功复制到粘贴板","color:#00D69C;");
-//     $(this).tooltip('toggle')
-//           .attr('data-original-title', "复制成功！")
-//           .tooltip('fixTitle')
-//           .tooltip('toggle');
-// });
-$('.clear').click(function(){
-     $('#json-src').val('');
-     $('#json-target').html('');
-});
-// $('.save').click(function(){
-//     var content = JSON.stringify(current_json);
-//     $('#txt-content').val(content);
-//     $("#form-save").submit();
-// });
-
-$('#json-src').keyup();
-
-// function getWinHeight() {
-//     var winHeight = 0;
-//     if (window.innerHeight)
-//         winHeight = window.innerHeight;
-//     else if ((document.body) && (document.body.clientHeight))
-//         winHeight = document.body.clientHeight;
-//     return winHeight;
-// }
-// $(window).resize(function() {
-//     $('#json-src').css('height', getWinHeight() - 97);
-//     $('#json-target').css('height', getWinHeight() - 141);
-// });
-// $(window).resize();
-</script>
+<script src="js/jquery.json.js?v=2"></script>
+<script src="js/jquery.xml2json.js?v=2"></script>
+<script src="js/jquery.json2xml.js?v=2"></script>
+<script src="js/vendor/lossless-json.umd.js?v=2"></script>
+<script src="js/vendor/jsonrepair.umd.min.js?v=2"></script>
+<script src="js/jsontool-core.js?v=2"></script>
+<script src="js/jsontool.js?v=2"></script>
 
 <!-- SEO 内容区域 -->
 <section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
