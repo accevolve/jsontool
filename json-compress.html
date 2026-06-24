@@ -44,7 +44,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/base.v3.css" />
+  <link rel="stylesheet" type="text/css" href="css/base.v3.css?v=2" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
@@ -74,12 +74,10 @@
         <a class="navbar-brand" href="/" text="Jsontool.cn">Jsontool.cn</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse navbar-right">
-        <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">
           <li><a href="/">首页</a></li>
-          <li><a href="/json-format.html">格式优化</a></li>
-          <li><a href="/json-parse.html">JSON解析</a></li>
-          <li><a href="/json-validate.html">JSON校验</a></li>
           <li><a href="/courses/">教程</a></li>
+          <li><a href="mailto:jsontool@163.com">投诉/建议</a></li>
         </ul>
       </div>
     </div>
@@ -98,53 +96,29 @@
 }</textarea>
     </div>
     <div class="col-md-7" style="padding:0;">
-      <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
-        <a href="#" class="compress-btn" title="压缩" data-placement="bottom" style="color:#15b374;"><i class="fa fa-compress"></i> 压缩</a>
-        <a href="#" class="format-btn" title="格式化" data-placement="bottom" style="margin-left:20px;"><i class="fa fa-indent"></i> 格式化</a>
-        <a href="#" class="copy" title="复制" data-clipboard-target="#json-target" data-placement="bottom" style="margin-left:20px;"><i class="fa fa-copy"></i></a>
-        <a href="#" class="clear" title="清空" data-placement="bottom" style="margin-left:10px;"><i class="fa fa-eraser"></i></a>
+                  <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
+        <a href="#" class="copy" data-tip="复制" aria-label="复制" data-clipboard-target="#json-target"><i class="fa fa-copy"></i></a>
+        <a href="#" class="zip" data-tip="压缩" aria-label="压缩"><i class="fa fa-compress"></i></a>
+        <a href="#" class="repair" data-tip="一键修复" aria-label="一键修复"><i class="fa fa-magic"></i></a>
+        <a href="#" class="unescape" data-tip="去除转义" aria-label="去除转义"><i class="fa fa-unlink"></i></a>
+        <a href="#" class="escape" data-tip="转义字符串" aria-label="转义字符串"><i class="fa fa-link"></i></a>
+        <a href="#" class="uni-decode" data-tip="Unicode解码" aria-label="Unicode解码"><i class="fa fa-language"></i></a>
+        <a href="#" class="uni-encode" data-tip="Unicode编码" aria-label="Unicode编码"><i class="fa fa-font"></i></a>
+        <a href="#" class="xml" data-tip="转XML" aria-label="转XML"><i class="fa fa-file-excel-o"></i></a>
+        <a href="#" class="clear" data-tip="清空" aria-label="清空"><i class="fa fa-eraser"></i></a>
+        <input id="json-search" type="text" placeholder="搜索结果…" style="float:right;font-size:13px;padding:2px 8px;border:1px solid #ddd;border-radius:3px;outline:none;width:150px;" />
       </div>
       <div id="json-target" style="height:calc(100vh - 135px);padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;font-family:monospace;"></div>
     </div>
   </main>
 
-<script src="js/jquery.json.js"></script>
-<script>
-$('#json-src').keyup(function(){
-    var content = $.trim($(this).val());
-    if (content!='') {
-        try{
-            var obj = jsonlint.parse(content);
-            var compressed = JSON.stringify(obj);
-            var original = content.length;
-            var after = compressed.length;
-            var ratio = ((1 - after/original) * 100).toFixed(1);
-            $('#json-target').html('<span style="color:#15b374;font-weight:bold;">压缩结果（节省 ' + ratio + '%）</span><br><br><code style="word-break:break-all;">' + compressed.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</code>');
-        }catch(e){
-            $('#json-target').html('<span style="color:#f1592a;font-weight:bold;">' + e + '</span>');
-        }
-    }else{
-        $('#json-target').html('');
-    }
-});
-$('.compress-btn').click(function(){ $('#json-src').keyup(); });
-$('.format-btn').click(function(){
-    var content = $.trim($('#json-src').val());
-    if (content!='') {
-        try{
-            jsonlint.parse(content);
-            $('#json-target').html(new JSONFormat(content,4).toString());
-        }catch(e){
-            $('#json-target').html('<span style="color:#f1592a;font-weight:bold;">' + e + '</span>');
-        }
-    }
-});
-var clipboard = new ClipboardJS('.copy');
-clipboard.on('success', function(e) { toastr.options.timeOut = 30; toastr.success("已复制"); e.clearSelection(); });
-clipboard.on('error', function(e) { toastr.options.timeOut = 30; toastr.error("复制失败"); });
-$('.clear').click(function(){ $('#json-src').val(''); $('#json-target').html(''); });
-$('#json-src').keyup();
-</script>
+<script src="js/jquery.json.js?v=2"></script>
+<script src="js/jquery.xml2json.js?v=2"></script>
+<script src="js/jquery.json2xml.js?v=2"></script>
+<script src="js/vendor/lossless-json.umd.js?v=2"></script>
+<script src="js/vendor/jsonrepair.umd.min.js?v=2"></script>
+<script src="js/jsontool-core.js?v=2"></script>
+<script src="js/jsontool.js?v=2"></script>
 
 <section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
   <h1 style="font-size:22px;color:#333;margin-top:0;">JSON 在线压缩工具</h1>
@@ -163,9 +137,18 @@ $('#json-src').keyup();
 </section>
 
 <footer class="fixed_footer">
-  <div id="copyright">
-    &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>, All rights reserved.
-  </div>
+    <div id="copyright">
+        &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>
+        <span style="margin-left:10px;font-size:11px;">
+          <a href="/json-format.html" style="color:#999;">JSON格式化</a> ·
+          <a href="/json-parse.html" style="color:#999;">JSON解析</a> ·
+          <a href="/json-validate.html" style="color:#999;">JSON校验</a> ·
+          <a href="/json-compress.html" style="color:#999;">JSON压缩</a> ·
+          <a href="/json-to-xml.html" style="color:#999;">JSON转XML</a> ·
+          <a href="/courses/" style="color:#999;">JSON教程</a> ·
+          <a href="/sitemap-page.html" style="color:#999;">站点地图</a>
+        </span>
+    </div>
 </footer>
 </body>
 </html>

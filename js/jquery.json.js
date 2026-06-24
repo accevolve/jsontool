@@ -44,7 +44,14 @@ var JSONFormat = (function(){
     }
 
     function _format_number(object){
-        return '<span class="json_number">' + object + '</span>';
+        var s;
+        if (typeof LosslessJSON !== 'undefined' && LosslessJSON.isLosslessNumber && LosslessJSON.isLosslessNumber(object)) {
+            // 安全范围内的数字按原行为归一化显示；超安全范围（大整数/高精度小数）保留原始字符串，避免精度丢失
+            s = LosslessJSON.isSafeNumber(object.value) ? String(Number(object.value)) : object.value;
+        } else {
+            s = '' + object;
+        }
+        return '<span class="json_number">' + s + '</span>';
     }
 
     function _format_string(object){
@@ -83,6 +90,7 @@ var JSONFormat = (function(){
     function _typeof(object){
         var tf = typeof object,
             ts = _toString.call(object);
+        if (typeof LosslessJSON !== 'undefined' && LosslessJSON.isLosslessNumber && LosslessJSON.isLosslessNumber(object)) return 'Number';
         return null === object ? 'Null' :
             'undefined' == tf ? 'Undefined'   :
                 'boolean' == tf ? 'Boolean'   :
@@ -114,9 +122,10 @@ var JSONFormat = (function(){
         '.json_array_brackets{}');
 
     var _JSONFormat = function(origin_data){
-        //this.data = origin_data ? origin_data :
-            //JSON && JSON.parse ? JSON.parse(origin_data) : eval('(' + origin_data + ')');
-        this.data = JSON.parse(origin_data);
+        // 大整数精度保真：优先用 LosslessJSON 解析（大数保留为字符串），降级回原生 JSON.parse
+        this.data = (typeof LosslessJSON !== 'undefined' && LosslessJSON.parse)
+            ? LosslessJSON.parse(origin_data)
+            : JSON.parse(origin_data);
     };
 
     _JSONFormat.prototype = {
