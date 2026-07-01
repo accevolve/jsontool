@@ -120,3 +120,18 @@ body {
   line-height: 40px; /* 垂直居中，假设footer的高度是40px */
   background: #f8f8f8; /* 背景颜色 */
 }
+
+/* ===== 备案公告条：桌面端锁定高度(44px)，略大于 main 的 calc 预留(42px)，使内容框底部压到页脚下方 2px（被不透明页脚盖住），消除底部漏字缝隙；flex 居中让文字不偏上。备案后公告条移除时，本段可一并删除 ===== */
+@media (min-width: 992px) {
+  #beian-notice { height: 44px; box-sizing: border-box; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+}
+
+/* ===== 移动端适配（≤991px）：两栏由并排变上下堆叠，改为定高分屏；放开滚动；页脚不再固定遮挡；工具栏收窄避免错乱 ===== */
+@media (max-width: 991px) {
+  body { overflow: auto !important; }        /* 覆盖 body 内联 overflow:hidden，允许页面滚动 */
+  #json-src    { height: 40vh !important; }  /* 覆盖内联 calc 高度：输入区 */
+  #json-target { height: 45vh !important; }  /* 覆盖内联 calc 高度：输出区 */
+  .fixed_footer { position: static; }        /* 移动端页脚随页滚动，不再遮挡内容 */
+  .navi a { padding: 0 9px; }                /* 收窄图标间距，减少换行 */
+  #json-search { float: none !important; width: 120px !important; }  /* 搜索框回到图标行内 */
+}
