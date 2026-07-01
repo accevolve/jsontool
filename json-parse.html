@@ -135,9 +135,15 @@
     </div>
   </nav>
 
+  <!-- 备案公告条：备案通过后整段删除，并把下方 main 两处 calc 改回 90px / 135px -->
+  <div id="beian-notice" style="background:#fff8e1;color:#8a6d3b;border-bottom:1px solid #f0e0a0;text-align:center;font-size:13px;line-height:1.7;padding:8px 40px;">
+    <i class="fa fa-bullhorn" style="margin-right:6px;"></i>
+    因 ICP 备案，本站 <strong>7.4–7.19</strong> 期间可能会无法访问或访问不稳定，备案完成后即恢复，敬请谅解。欢迎后续继续使用，谢谢。
+  </div>
+
   <main class="row-fluid">
     <div class="col-md-5" style="padding:0;">
-      <textarea id="json-src" placeholder="在此粘贴需要解析的 JSON 字符串..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;height:calc(100vh - 90px);">{"code":200,"message":"success","data":{"users":[{"id":1,"name":"张三"},{"id":2,"name":"李四"}]}}</textarea>
+      <textarea id="json-src" placeholder="在此粘贴需要解析的 JSON 字符串..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;height:calc(100vh - 132px);">{"code":200,"message":"success","data":{"users":[{"id":1,"name":"张三"},{"id":2,"name":"李四"}]}}</textarea>
     </div>
     <div class="col-md-7" style="padding:0;">
                   <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
@@ -152,7 +158,7 @@
         <a href="#" class="clear" data-tip="清空" aria-label="清空"><i class="fa fa-eraser"></i></a>
         <input id="json-search" type="text" placeholder="搜索结果…" style="float:right;font-size:13px;padding:2px 8px;border:1px solid #ddd;border-radius:3px;outline:none;width:150px;" />
       </div>
-      <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;height:calc(100vh - 135px);"></div>
+      <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;height:calc(100vh - 177px);"></div>
     </div>
   </main>
 
