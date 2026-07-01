@@ -149,13 +149,19 @@
   </div><!-- /.container -->
   </nav>
 
+  <!-- 备案公告条：备案通过后整段删除，并把下方 main 两处 calc 改回 90px / 135px -->
+  <div id="beian-notice" style="background:#fff8e1;color:#8a6d3b;border-bottom:1px solid #f0e0a0;text-align:center;font-size:13px;line-height:1.7;padding:8px 40px;">
+    <i class="fa fa-bullhorn" style="margin-right:6px;"></i>
+    因 ICP 备案，本站 <strong>7.4–7.19</strong> 期间可能会无法访问或访问不稳定，备案完成后即恢复，敬请谅解。欢迎后续继续使用，谢谢。
+  </div>
+
 <!-- <link href="css/base.css" rel="stylesheet" /> -->
 
   <!-- 主要内容区域 -->
   <main class="row-fluid">
       <!-- 左边文本框 -->
       <div class="col-md-5" style="padding:0;">
-          <textarea id="json-src" placeholder="在此输入json字符串或XML字符串..." class="form-control"  style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize: none; outline:none;height:calc(100vh - 90px);">{"i":200,"str":"ok"}</textarea>
+          <textarea id="json-src" placeholder="在此输入json字符串或XML字符串..." class="form-control"  style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize: none; outline:none;height:calc(100vh - 132px);">{"i":200,"str":"ok"}</textarea>
       </div>
       <!-- 右边文本框和功能按钮 -->
       <div class="col-md-7" style="padding:0;">
@@ -171,7 +177,7 @@
         <a href="#" class="clear" data-tip="清空" aria-label="清空"><i class="fa fa-eraser"></i></a>
         <input id="json-search" type="text" placeholder="搜索结果…" style="float:right;font-size:13px;padding:2px 8px;border:1px solid #ddd;border-radius:3px;outline:none;width:150px;" />
       </div>
-          <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize: none;overflow-y:auto; outline:none;height:calc(100vh - 135px);">
+          <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize: none;overflow-y:auto; outline:none;height:calc(100vh - 177px);">
           </div>
           <!-- <form id="form-save" method="POST"><input type="hidden" value="" id="txt-content" name="content"></form> -->
       </div>
