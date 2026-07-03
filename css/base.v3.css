@@ -35,41 +35,61 @@ a:hover{
     color: #0fd59d;
     padding: 10px;
 }
-.navi{
-    padding:5px 20px;
-    font-size:14px;
-    font-weight:bold;font-family:Menlo,Monaco,Consolas,"Courier New",monospace, "Helvetica Neue",Helvetica,Arial,sans-serif,'幼圆'
+/* ===== 工具栏：图标+文字按钮，主操作直显 +「转换」下拉（2026 改版，替代原纯图标 .navi）===== */
+.jt-toolbar{
+    display:flex; align-items:center; flex-wrap:wrap; gap:2px;
+    padding:6px 10px; background:#fff; border-bottom:1px solid #eee;
+    font-size:13px;
 }
-.navi a{
-    padding: 0px 20px;
-    color: #999;
+.jt-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    height:30px; padding:0 10px; margin:0;
+    border:0; background:transparent; border-radius:7px;
+    color:#5b6b7b; font-size:13px; line-height:1; white-space:nowrap;
+    cursor:pointer; font-family:inherit;
+    transition:background .15s ease, color .15s ease;
 }
-.navi a:hover{
-    color: #15b374 !important; /* 覆盖 JS 给 zip/xml 打的内联 color:#999，保证所有图标 hover 变绿 */
+.jt-btn .fa{ font-size:14px; }
+.jt-btn:hover{ background:#eef9f3; color:#15b374; }
+.jt-btn:active{ background:#e2f4ea; }
+.jt-btn.is-active{ background:#15b374; color:#fff; }        /* 压缩 / 转XML 激活态 */
+.jt-btn.danger:hover{ background:#fdecec; color:#e5533d; }  /* 清空 */
+.jt-spacer{ flex:1 1 8px; min-width:8px; }
+
+/* 「转换」下拉 */
+.jt-dropdown{ position:relative; display:inline-flex; }
+.jt-caret{ font-size:12px; margin-left:1px; opacity:.7; }
+.jt-dropdown.open .jt-dropdown-toggle{ background:#eef9f3; color:#15b374; }
+.jt-menu{
+    display:none; position:absolute; top:calc(100% + 5px); left:0; z-index:1000;
+    min-width:196px; padding:5px; background:#fff;
+    border:1px solid #ececec; border-radius:10px; box-shadow:0 8px 26px rgba(0,0,0,.10);
 }
-/* 图标即时提示：显示在图标上方、无延迟（替代慢的原生 title） */
-.navi a{ position: relative; }
-.navi a[data-tip]::after{
-    content: attr(data-tip);
-    position: absolute;
-    bottom: calc(100% + 6px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,.82);
-    color: #fff;
-    font-size: 12px;
-    font-weight: normal;
-    line-height: 1.2;
-    padding: 5px 9px;
-    border-radius: 4px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    z-index: 2000;
-    transition: opacity .1s ease;
+.jt-dropdown.open .jt-menu{ display:block; }
+.jt-menu-item{
+    display:flex; align-items:center; gap:9px; width:100%;
+    padding:7px 10px; margin:0; border:0; background:transparent; border-radius:7px;
+    color:#3a4553; font-size:13px; line-height:1.2; text-align:left; cursor:pointer;
+    font-family:inherit; transition:background .12s ease;
 }
-.navi a[data-tip]:hover::after{ opacity: 1; visibility: visible; }
+.jt-menu-item .fa{ width:15px; text-align:center; color:#8a97a5; }
+.jt-menu-item span{ font-weight:500; }
+.jt-menu-item em{ margin-left:auto; padding-left:14px; font-style:normal; font-size:11px; color:#aab2bd; white-space:nowrap; }
+.jt-menu-item:hover{ background:#f2f7f4; }
+.jt-menu-item:hover .fa{ color:#15b374; }
+.jt-menu-sep{ height:1px; margin:4px 6px; background:#f0f0f0; }
+
+/* 搜索框（内嵌放大镜 + 聚焦绿描边）*/
+.jt-search{ position:relative; display:inline-flex; align-items:center; }
+.jt-search .fa{ position:absolute; left:10px; color:#b3bcc6; font-size:13px; pointer-events:none; }
+.jt-search input{
+    height:30px; width:160px; padding:0 10px 0 30px;
+    border:1px solid #e6e6e6; border-radius:7px; background:#fff;
+    font-size:13px; color:#333; outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+}
+.jt-search input:focus{ border-color:#15b374; box-shadow:0 0 0 3px rgba(21,179,116,.12); }
+.jt-search input::placeholder{ color:#b3bcc6; }
 
 .navbar {
     margin-bottom: 0px;
@@ -132,6 +152,11 @@ body {
   #json-src    { height: 40vh !important; }  /* 覆盖内联 calc 高度：输入区 */
   #json-target { height: 45vh !important; }  /* 覆盖内联 calc 高度：输出区 */
   .fixed_footer { position: static; }        /* 移动端页脚随页滚动，不再遮挡内容 */
-  .navi a { padding: 0 9px; }                /* 收窄图标间距，减少换行 */
-  #json-search { float: none !important; width: 120px !important; }  /* 搜索框回到图标行内 */
+  .jt-toolbar { gap: 1px; padding: 6px 8px; position: relative; }  /* 更紧凑、允许换行；作下拉菜单定位基准 */
+  .jt-btn { padding: 0 8px; flex-shrink: 0; }        /* 不压缩，配合 flex-wrap 干净换行而非溢出 */
+  .jt-spacer { flex: 0; min-width: 0; }               /* 不撑开（去掉 grow），按钮靠左紧凑、整体干净换行 */
+  .jt-search input { width: 130px; }
+  /* 「转换」下拉：移动端改为贴工具栏、近满宽下拉，避免绝对定位溢出屏幕右缘 */
+  .jt-dropdown { position: static; }
+  .jt-menu { left: 10px; right: 10px; min-width: 0; }
 }

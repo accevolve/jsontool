@@ -34,8 +34,7 @@
 
     function resetToggles() {
       xml_flag = false; zip_flag = false;
-      $('.xml').attr('style', 'color:#999;');
-      $('.zip').attr('style', 'color:#999;');
+      $('.xml, .zip').removeClass('is-active');
     }
 
     // ---- 错误展示（行列 + 中文提示 + 出错行）----
@@ -92,7 +91,7 @@
     $('.zip').on('click', function (e) {
       e && e.preventDefault();
       if (zip_flag) { render(); }
-      else { $target.text(current_json_str); zip_flag = true; $(this).attr('style', 'color:#15b374;'); }
+      else { $target.text(current_json_str); zip_flag = true; $(this).addClass('is-active'); }
     });
 
     $('.xml').on('click', function (e) {
@@ -101,7 +100,7 @@
       try {
         var result = $.json2xml(current_json);
         $target.html('<textarea style="width:100%;height:100%;border:0;resize:none;">' + esc(result) + '</textarea>');
-        xml_flag = true; $(this).attr('style', 'color:#15b374;');
+        xml_flag = true; $(this).addClass('is-active');
       } catch (e2) { if (window.toastr) toastr.error('转换失败'); }
     });
 
@@ -155,6 +154,19 @@
     var $search = $('#json-search');
     if ($search.length) {
       $search.on('input', debounce(function () { doSearch($search.val()); }, 200));
+    }
+
+    // ---- 「转换」下拉：点击开合，点其他任意处关闭 ----
+    var $dd = $('.jt-dropdown');
+    if ($dd.length) {
+      $dd.find('.jt-dropdown-toggle').on('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        var open = $dd.toggleClass('open').hasClass('open');
+        $(this).attr('aria-expanded', open ? 'true' : 'false');
+      });
+      $(document).on('click', function () {
+        if ($dd.hasClass('open')) { $dd.removeClass('open').find('.jt-dropdown-toggle').attr('aria-expanded', 'false'); }
+      });
     }
     function clearHighlights() {
       var marks = $target[0] ? $target[0].querySelectorAll('mark.jt-hit') : [];

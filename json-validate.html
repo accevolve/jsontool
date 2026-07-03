@@ -76,7 +76,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/base.v3.css?v=3" />
+  <link rel="stylesheet" type="text/css" href="css/base.v3.css?v=4" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
@@ -132,29 +132,36 @@
       <textarea id="json-src" placeholder="在此粘贴需要校验的 JSON 数据..." class="form-control" style="height:calc(100vh - 132px);padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;">{"name":"test","valid":true,"count":42}</textarea>
     </div>
     <div class="col-md-7" style="padding:0;">
-                  <div style="padding:7px;font-size:16px;border-bottom:solid 1px #ddd;" class="navi">
-        <a href="#" class="copy" data-tip="复制" aria-label="复制" data-clipboard-target="#json-target"><i class="fa fa-copy"></i></a>
-        <a href="#" class="zip" data-tip="压缩" aria-label="压缩"><i class="fa fa-compress"></i></a>
-        <a href="#" class="repair" data-tip="一键修复" aria-label="一键修复"><i class="fa fa-magic"></i></a>
-        <a href="#" class="unescape" data-tip="去除转义" aria-label="去除转义"><i class="fa fa-unlink"></i></a>
-        <a href="#" class="escape" data-tip="转义字符串" aria-label="转义字符串"><i class="fa fa-link"></i></a>
-        <a href="#" class="uni-decode" data-tip="Unicode解码" aria-label="Unicode解码"><i class="fa fa-language"></i></a>
-        <a href="#" class="uni-encode" data-tip="Unicode编码" aria-label="Unicode编码"><i class="fa fa-font"></i></a>
-        <a href="#" class="xml" data-tip="转XML" aria-label="转XML"><i class="fa fa-file-excel-o"></i></a>
-        <a href="#" class="clear" data-tip="清空" aria-label="清空"><i class="fa fa-eraser"></i></a>
-        <input id="json-search" type="text" placeholder="搜索结果…" style="float:right;font-size:13px;padding:2px 8px;border:1px solid #ddd;border-radius:3px;outline:none;width:150px;" />
+                  <div class="jt-toolbar">
+        <button type="button" class="jt-btn copy" data-clipboard-target="#json-target" aria-label="复制"><i class="fa fa-copy"></i><span>复制</span></button>
+        <button type="button" class="jt-btn repair" aria-label="一键修复"><i class="fa fa-magic"></i><span>修复</span></button>
+        <button type="button" class="jt-btn zip" aria-label="压缩"><i class="fa fa-compress"></i><span>压缩</span></button>
+        <div class="jt-dropdown">
+          <button type="button" class="jt-btn jt-dropdown-toggle" aria-haspopup="true" aria-expanded="false"><i class="fa fa-exchange"></i><span>转换</span><i class="fa fa-caret-down jt-caret"></i></button>
+          <div class="jt-menu">
+            <button type="button" class="jt-menu-item unescape"><i class="fa fa-unlink"></i><span>去转义</span><em>反斜杠还原</em></button>
+            <button type="button" class="jt-menu-item escape"><i class="fa fa-link"></i><span>转义</span><em>转为字符串</em></button>
+            <div class="jt-menu-sep"></div>
+            <button type="button" class="jt-menu-item uni-decode"><i class="fa fa-language"></i><span>Unicode 解码</span><em>\uXXXX→中文</em></button>
+            <button type="button" class="jt-menu-item uni-encode"><i class="fa fa-font"></i><span>Unicode 编码</span><em>中文→\uXXXX</em></button>
+          </div>
+        </div>
+        <button type="button" class="jt-btn xml" aria-label="转XML"><i class="fa fa-file-code-o"></i><span>转XML</span></button>
+        <span class="jt-spacer"></span>
+        <button type="button" class="jt-btn danger clear" aria-label="清空"><i class="fa fa-trash-o"></i><span>清空</span></button>
+        <div class="jt-search"><i class="fa fa-search"></i><input id="json-search" type="text" placeholder="搜索结果…" /></div>
       </div>
       <div id="json-target" style="height:calc(100vh - 177px);padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;"></div>
     </div>
   </main>
 
-<script src="js/jquery.json.js?v=2"></script>
+<script src="js/jquery.json.js?v=3"></script>
 <script src="js/jquery.xml2json.js?v=2"></script>
 <script src="js/jquery.json2xml.js?v=2"></script>
 <script src="js/vendor/lossless-json.umd.js?v=2"></script>
 <script src="js/vendor/jsonrepair.umd.min.js?v=2"></script>
 <script src="js/jsontool-core.js?v=2"></script>
-<script src="js/jsontool.js?v=2"></script>
+<script src="js/jsontool.js?v=3"></script>
 
 <section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
   <h1 style="font-size:22px;color:#333;margin-top:0;">JSON 在线校验工具</h1>
