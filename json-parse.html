@@ -96,7 +96,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/base.v3.css?v=4" />
+  <link rel="stylesheet" type="text/css" href="css/base.v3.css?v=5" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
@@ -129,7 +129,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/" text="Jsontool.cn">Jsontool.cn</a>
+        <a class="navbar-brand" href="/"><span class="brand-mark">{<i>:</i>}</span>Jsontool.cn</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
@@ -141,15 +141,10 @@
     </div>
   </nav>
 
-  <!-- 备案公告条：备案通过后整段删除，并把下方 main 两处 calc 改回 90px / 135px -->
-  <div id="beian-notice" style="background:#fff8e1;color:#8a6d3b;border-bottom:1px solid #f0e0a0;text-align:center;font-size:13px;line-height:1.7;padding:8px 40px;">
-    <i class="fa fa-bullhorn" style="margin-right:6px;"></i>
-    因 ICP 备案，本站 <strong>7.4–7.19</strong> 期间可能会无法访问或访问不稳定，备案完成后即恢复，敬请谅解。欢迎后续继续使用，谢谢。
-  </div>
 
   <main class="row-fluid">
     <div class="col-md-5" style="padding:0;">
-      <textarea id="json-src" placeholder="在此粘贴需要解析的 JSON 字符串..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;height:calc(100vh - 132px);">{"code":200,"message":"success","data":{"users":[{"id":1,"name":"张三"},{"id":2,"name":"李四"}]}}</textarea>
+      <textarea id="json-src" placeholder="在此粘贴需要解析的 JSON 字符串..." class="form-control" style="padding:20px;border:0;border-right:solid 1px #e8ebee;border-radius:0;resize:none;outline:none;height:calc(100vh - 90px);">{"code":200,"message":"success","data":{"users":[{"id":1,"name":"张三"},{"id":2,"name":"李四"}]}}</textarea>
     </div>
     <div class="col-md-7" style="padding:0;">
                   <div class="jt-toolbar">
@@ -171,27 +166,28 @@
         <button type="button" class="jt-btn danger clear" aria-label="清空"><i class="fa fa-trash-o"></i><span>清空</span></button>
         <div class="jt-search"><i class="fa fa-search"></i><input id="json-search" type="text" placeholder="搜索结果…" /></div>
       </div>
-      <div id="json-target" style="padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;height:calc(100vh - 177px);"></div>
+      <div id="json-target" style="padding:20px;border-right:solid 1px #e8ebee;border-radius:0;resize:none;overflow-y:scroll;outline:none;height:calc(100vh - 133px);"></div>
     </div>
   </main>
 
-<script src="js/jquery.json.js?v=3"></script>
+<script src="js/jquery.json.js?v=4"></script>
 <script src="js/jquery.xml2json.js?v=2"></script>
 <script src="js/jquery.json2xml.js?v=2"></script>
 <script src="js/vendor/lossless-json.umd.js?v=2"></script>
 <script src="js/vendor/jsonrepair.umd.min.js?v=2"></script>
 <script src="js/jsontool-core.js?v=2"></script>
-<script src="js/jsontool.js?v=3"></script>
+<script src="js/jsontool.js?v=4"></script>
 
-<section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
-  <h1 style="font-size:22px;color:#333;margin-top:0;">JSON 在线解析工具</h1>
+<section class="seo-content">
+  <div class="seo-inner">
+  <h1>JSON 在线解析工具</h1>
   <p>JsonTool.cn 提供免费的 <strong>JSON 在线解析</strong>服务。将 JSON 字符串粘贴到输入框，工具会自动完成 <strong>JSON 解析</strong>，以结构化、带语法高亮的方式展示解析结果。支持实时校验，错误位置精确提示。</p>
 
-  <h2 style="font-size:17px;color:#333;">JSON 解析的基本原理</h2>
-  <p>JSON（JavaScript Object Notation）解析是指将符合 JSON 规范的文本字符串，转换为编程语言中的数据结构。在 JavaScript 中使用 <code>JSON.parse()</code> 方法，在 Python 中使用 <code>json.loads()</code> 方法。本工具基于 JSONLint 标准进行严格的语法校验和解析，确保数据格式完全符合 <a href="https://www.json.org/" rel="nofollow" style="color:#15b374;">JSON 官方规范</a>。</p>
+  <h2>JSON 解析的基本原理</h2>
+  <p>JSON（JavaScript Object Notation）解析是指将符合 JSON 规范的文本字符串，转换为编程语言中的数据结构。在 JavaScript 中使用 <code>JSON.parse()</code> 方法，在 Python 中使用 <code>json.loads()</code> 方法。本工具基于 JSONLint 标准进行严格的语法校验和解析，确保数据格式完全符合 <a href="https://www.json.org/" rel="nofollow">JSON 官方规范</a>。</p>
 
-  <h2 style="font-size:17px;color:#333;">JSON 解析常见问题</h2>
-  <ul style="padding-left:20px;">
+  <h2>JSON 解析常见问题</h2>
+  <ul>
     <li><strong>键名必须用双引号</strong>：<code>{"name": "value"}</code> 正确，<code>{name: "value"}</code> 错误</li>
     <li><strong>不支持尾部逗号</strong>：<code>{"a":1, "b":2,}</code> 中最后的逗号会导致解析失败</li>
     <li><strong>不支持注释</strong>：JSON 标准不允许 <code>//</code> 或 <code>/* */</code> 注释</li>
@@ -199,8 +195,8 @@
     <li><strong>特殊字符需转义</strong>：换行符、制表符等需使用 <code>\n</code>、<code>\t</code> 表示</li>
   </ul>
 
-  <h2 style="font-size:17px;color:#333;">为什么选择 JsonTool.cn 解析 JSON？</h2>
-  <ul style="padding-left:20px;">
+  <h2>为什么选择 JsonTool.cn 解析 JSON？</h2>
+  <ul>
     <li>无需注册，打开即用，完全免费</li>
     <li>基于 JSONLint 标准校验，解析结果准确可靠</li>
     <li>实时解析，输入即出结果，无需点击按钮</li>
@@ -208,21 +204,22 @@
     <li>数据在浏览器本地处理，不上传服务器，安全可靠</li>
   </ul>
 
-  <h2 style="font-size:17px;color:#333;">相关工具与教程</h2>
-  <p>了解更多 JSON 知识：<a href="/courses/beginner/json-intro.html" style="color:#15b374;">JSON 是什么</a> · <a href="/courses/beginner/json-syntax.html" style="color:#15b374;">JSON 语法基础</a> · <a href="/courses/beginner/json-parse-error.html" style="color:#15b374;">JSON 解析错误处理</a> · <a href="/json-format.html" style="color:#15b374;">JSON 格式优化</a> · <a href="/" style="color:#15b374;">JSON 在线工具首页</a></p>
+  <h2>相关工具与教程</h2>
+  <p>了解更多 JSON 知识：<a href="/courses/beginner/json-intro.html">JSON 是什么</a> · <a href="/courses/beginner/json-syntax.html">JSON 语法基础</a> · <a href="/courses/beginner/json-parse-error.html">JSON 解析错误处理</a> · <a href="/json-format.html">JSON 格式优化</a> · <a href="/">JSON 在线工具首页</a></p>
+  </div>
 </section>
 
 <footer class="fixed_footer">
     <div id="copyright">
         &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>
-        <span style="margin-left:10px;font-size:11px;">
-          <a href="/json-format.html" style="color:#999;">JSON格式化</a> ·
-          <a href="/json-parse.html" style="color:#999;">JSON解析</a> ·
-          <a href="/json-validate.html" style="color:#999;">JSON校验</a> ·
-          <a href="/json-compress.html" style="color:#999;">JSON压缩</a> ·
-          <a href="/json-to-xml.html" style="color:#999;">JSON转XML</a> ·
-          <a href="/courses/" style="color:#999;">JSON教程</a> ·
-          <a href="/sitemap-page.html" style="color:#999;">站点地图</a>
+        <span class="foot-links">
+          <a href="/json-format.html">JSON格式化</a> ·
+          <a href="/json-parse.html">JSON解析</a> ·
+          <a href="/json-validate.html">JSON校验</a> ·
+          <a href="/json-compress.html">JSON压缩</a> ·
+          <a href="/json-to-xml.html">JSON转XML</a> ·
+          <a href="/courses/">JSON教程</a> ·
+          <a href="/sitemap-page.html">站点地图</a>
         </span>
     </div>
 </footer>

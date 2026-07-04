@@ -37,11 +37,19 @@
       $('.xml, .zip').removeClass('is-active');
     }
 
+    // ---- 空状态：清空后右侧不留白板，顺带传达「本地处理」隐私卖点 ----
+    var EMPTY_HTML = '<div class="jt-empty">'
+      + '<div class="jt-empty-mark">{<i>:</i>}</div>'
+      + '<div class="jt-empty-main">粘贴或输入 JSON，自动格式化</div>'
+      + '<div class="jt-empty-sub"><i class="fa fa-shield"></i>数据仅在浏览器本地处理，不会上传</div>'
+      + '</div>';
+    function showEmpty() { $target.html(EMPTY_HTML); }
+
     // ---- 错误展示（行列 + 中文提示 + 出错行）----
     function showError(content, err) {
-      if (!Core) { $target.html('<span style="color:#f1592a;font-weight:bold;">' + esc(err && err.message || err) + '</span>'); return; }
+      if (!Core) { $target.html('<span style="color:#cf222e;font-weight:bold;">' + esc(err && err.message || err) + '</span>'); return; }
       var info = Core.analyzeError(content, err);
-      var html = '<div style="color:#f1592a;font-weight:bold;">解析错误</div>';
+      var html = '<div style="color:#cf222e;font-weight:bold;">解析错误</div>';
       if (info.line != null) {
         html += '<div style="color:#666;margin-top:6px;">位置：第 ' + info.line + ' 行'
               + (info.col != null ? '，第 ' + info.col + ' 列' : '') + '</div>';
@@ -59,14 +67,14 @@
     function render() {
       resetToggles();
       var content = String($src.val()).trim();
-      if (content === '') { $target.html(''); return; }
+      if (content === '') { showEmpty(); return; }
 
       // XML → JSON（与原逻辑一致）
       if (content.charAt(0) === '<' && content.charAt(content.length - 1) === '>') {
         try {
           content = JSON.stringify($.xml2json(content));
         } catch (e) {
-          $target.html('解析错误：<span style="color:#f1592a;font-weight:bold;">' + esc(e.message) + '</span>');
+          $target.html('解析错误：<span style="color:#cf222e;font-weight:bold;">' + esc(e.message) + '</span>');
           return;
         }
       }
@@ -110,7 +118,7 @@
       clipboard.on('error', function () { if (window.toastr) { toastr.options.timeOut = 30; toastr.error('复制失败'); } });
     }
 
-    $('.clear').on('click', function (e) { e && e.preventDefault(); $src.val(''); $target.html(''); save(); });
+    $('.clear').on('click', function (e) { e && e.preventDefault(); $src.val(''); showEmpty(); save(); });
 
     // ---- 新增：文本转换按钮 ----
     function getInput() { return $src.val(); }
@@ -131,7 +139,7 @@
       try {
         var out = fn(getInput());
         setInput(out); save();
-        if (String(out).trim() === '') $target.html('');
+        if (String(out).trim() === '') showEmpty();
         else if (isJSON(out)) render();
         else showRaw(out);
       } catch (e) {

@@ -158,12 +158,16 @@ var JSONFormat = (function(){
         document.getElementsByTagName('head')[0].appendChild(style);
     }
 
+    // 2026-07 视觉改版：低饱和语法色板（类 GitHub Light），去全局加粗，仅 key 半粗；
+    // 绿色保留为字符串语法色（行业惯例，内容着色而非品牌色）
     loadCssString(
-        '.json_key{ color: #92278f;font-weight:bold;}',
-        '.json_null{color: #f1592a;font-weight:bold;}',
-        '.json_string{ color: #3ab54a;font-weight:bold;}',
-        '.json_number{ color: #25aae2;font-weight:bold;}',
-        '.json_link{ color: #717171;font-weight:bold;}',
+        '.json_key{ color: #7048b6;font-weight:600;}',
+        '.json_null{ color: #98a1ab;font-style:italic;}',
+        '.json_string{ color: #1f883d;}',
+        '.json_number{ color: #0b6bcb;}',
+        '.json_boolean{ color: #bf5b04;}',
+        '.json_link{ color: #0969da;text-decoration:none;border-bottom:1px dashed rgba(9,105,218,.45);}',
+        '.json_link:hover{ color: #0969da;border-bottom-style:solid;}',
         '.json_array_brackets{}');
 
     var _JSONFormat = function(origin_data){

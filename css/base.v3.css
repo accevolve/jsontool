@@ -1,41 +1,58 @@
-a{
-    display: inline-block;
-    text-decoration: none;
-    font-family: Menlo,Monaco,Consolas,'微软雅黑';
-    color: #29abe2;
+/* =========================================================
+   JsonTool.cn 基础样式 base.v3.css（2026-07 视觉改版）
+   体系：墨石 Ink —— 白底 + 墨石 #1f2937 强调 + 灰阶中性色；
+   琥珀 #f59e0b 仅用于 Logo 冒号与空状态图形（全站唯一点睛色）；
+   UI 用系统无衬线字体，等宽字体只留给代码区；
+   JSON 语法高亮色在 js/jquery.json.js（loadCssString）中定义。
+   ========================================================= */
+
+/* ---- 基础 ---- */
+a{ display:inline-block; text-decoration:none; color:#374151; }
+a:hover{ text-decoration:none; color:#111827; }
+input:focus, textarea:focus{ outline:none; }
+::selection{ background:rgba(31,41,55,.12); }
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    font-size:13px; line-height:1.846; color:#4b5563; padding-top:50px;
 }
-.green{
-    color:#0fd59d;
+#json-src, #json-target, pre, code{
+    font-family:ui-monospace,"SF Mono",Menlo,Monaco,Consolas,"Cascadia Mono","Courier New",monospace;
 }
-.red{
-    color:#f98280;
+
+.tooltip{ font-size:12px; position:absolute; padding:5px; z-index:100000; opacity:.8; }
+
+/* ---- 导航栏：白底细线 + 徽标 Logo「{:}」（琥珀冒号） ---- */
+.navbar{ margin-bottom:0; }
+.navbar-default{ background:#fff; border-color:#ececec; }
+.navbar-default .navbar-brand{
+    display:flex; align-items:center; gap:9px;
+    color:#1f2937; font-weight:700; font-size:19px; letter-spacing:.2px;
 }
-.blue{
-    color:#29abe2;
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus{ color:#000; }
+.brand-mark{
+    display:inline-flex; align-items:center; justify-content:center;
+    height:22px; padding:0 5px; border-radius:6px;
+    background:#1f2937; color:#fff;
+    font-family:Menlo,Consolas,monospace; font-size:13px; font-weight:700; line-height:1;
 }
-input:focus, textarea:focus {
-    outline: none;
+.brand-mark i{ font-style:normal; color:#f59e0b; }
+.navbar-default .navbar-nav>li>a{ color:#5b6b7b; font-size:13px; }
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus{ color:#111827; }
+.navbar-default .navbar-toggle{ border:none; }
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus{ background:#f3f4f6; }
+.navbar-default .navbar-toggle .icon-bar{ background:#5b6b7b; }
+.navbar-default .navbar-collapse{ border-color:#ececec; background:#fff; }
+
+/* 桌面端 Logo 垂直居中固定于左侧 */
+@media screen and (min-width: 768px) {
+  .navbar-header{ position:absolute; left:30px; top:50%; transform:translateY(-50%); }
 }
-a:hover{
-    text-decoration: none;
-    color: #15b374;
-}
-.label-success{
-    background-color: #0fd59d;
-}
-.header{
-/*    box-shadow: 0px 0px 1px #e5e5e5;*/
-/*    border-bottom: solid 1px #d5d5d5;*/
-    padding: 0px;
-}
-.logo{
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 24px;
-    color: #0fd59d;
-    padding: 10px;
-}
-/* ===== 工具栏：图标+文字按钮，主操作直显 +「转换」下拉（2026 改版，替代原纯图标 .navi）===== */
+
+/* ===== 工具栏：图标+文字按钮，主操作直显 +「转换」下拉 ===== */
 .jt-toolbar{
     display:flex; align-items:center; flex-wrap:wrap; gap:2px;
     padding:6px 10px; background:#fff; border-bottom:1px solid #eee;
@@ -50,16 +67,16 @@ a:hover{
     transition:background .15s ease, color .15s ease;
 }
 .jt-btn .fa{ font-size:14px; }
-.jt-btn:hover{ background:#eef9f3; color:#15b374; }
-.jt-btn:active{ background:#e2f4ea; }
-.jt-btn.is-active{ background:#15b374; color:#fff; }        /* 压缩 / 转XML 激活态 */
+.jt-btn:hover{ background:#f3f4f6; color:#111827; }
+.jt-btn:active{ background:#e9eaec; }
+.jt-btn.is-active{ background:#1f2937; color:#fff; }        /* 压缩 / 转XML 激活态 */
 .jt-btn.danger:hover{ background:#fdecec; color:#e5533d; }  /* 清空 */
 .jt-spacer{ flex:1 1 8px; min-width:8px; }
 
 /* 「转换」下拉 */
 .jt-dropdown{ position:relative; display:inline-flex; }
 .jt-caret{ font-size:12px; margin-left:1px; opacity:.7; }
-.jt-dropdown.open .jt-dropdown-toggle{ background:#eef9f3; color:#15b374; }
+.jt-dropdown.open .jt-dropdown-toggle{ background:#f3f4f6; color:#111827; }
 .jt-menu{
     display:none; position:absolute; top:calc(100% + 5px); left:0; z-index:1000;
     min-width:196px; padding:5px; background:#fff;
@@ -75,76 +92,102 @@ a:hover{
 .jt-menu-item .fa{ width:15px; text-align:center; color:#8a97a5; }
 .jt-menu-item span{ font-weight:500; }
 .jt-menu-item em{ margin-left:auto; padding-left:14px; font-style:normal; font-size:11px; color:#aab2bd; white-space:nowrap; }
-.jt-menu-item:hover{ background:#f2f7f4; }
-.jt-menu-item:hover .fa{ color:#15b374; }
+.jt-menu-item:hover{ background:#f3f4f6; }
+.jt-menu-item:hover .fa{ color:#1f2937; }
 .jt-menu-sep{ height:1px; margin:4px 6px; background:#f0f0f0; }
 
-/* 搜索框（内嵌放大镜 + 聚焦绿描边）*/
+/* 搜索框（内嵌放大镜 + 聚焦墨石描边）*/
 .jt-search{ position:relative; display:inline-flex; align-items:center; }
 .jt-search .fa{ position:absolute; left:10px; color:#b3bcc6; font-size:13px; pointer-events:none; }
 .jt-search input{
     height:30px; width:160px; padding:0 10px 0 30px;
     border:1px solid #e6e6e6; border-radius:7px; background:#fff;
     font-size:13px; color:#333; outline:none;
+    font-family:inherit;
     transition:border-color .15s ease, box-shadow .15s ease;
 }
-.jt-search input:focus{ border-color:#15b374; box-shadow:0 0 0 3px rgba(21,179,116,.12); }
+.jt-search input:focus{ border-color:#9aa4af; box-shadow:0 0 0 3px rgba(31,41,55,.10); }
 .jt-search input::placeholder{ color:#b3bcc6; }
 
-.navbar {
-    margin-bottom: 0px;
+/* ---- 主工作区：输入 / 输出细节 ---- */
+#json-src{ font-size:13px; color:#374151; caret-color:#1f2937; }
+#json-src::placeholder{ color:#b7c0ca; }
+/* 显式白底：main 两列为浮动、其下方 .seo-content 的浅灰底会透过透明面板显色，此处切断 */
+#json-target{ color:#5f6b76; line-height:1.9; background:#fff; }
+
+/* 折叠图标：静默灰，悬停加深 */
+#json-target .fa-minus-square-o,
+#json-target .fa-plus-square-o{ color:#b9c2cc; margin-right:3px; transition:color .12s ease; }
+#json-target .fa-minus-square-o:hover,
+#json-target .fa-plus-square-o:hover{ color:#1f2937; }
+
+/* 细滚动条（webkit） */
+#json-src::-webkit-scrollbar, #json-target::-webkit-scrollbar{ width:10px; height:10px; }
+#json-src::-webkit-scrollbar-thumb, #json-target::-webkit-scrollbar-thumb{
+    background:#d9dee3; border-radius:6px; border:2px solid #fff; background-clip:padding-box;
 }
-
-/*正文样式*/
-body {
-    font-family: Menlo,Monaco,Consolas,"Helvetica Neue",Helvetica,'微软雅黑',monospace,Arial,sans-serif,'黑体';
-    font-size: 13px;
-    line-height: 1.846;
-    color: #666666;
-    padding-top: 50px;
+#json-src::-webkit-scrollbar-thumb:hover, #json-target::-webkit-scrollbar-thumb:hover{
+    background:#c2c9d1; border-radius:6px; border:2px solid #fff; background-clip:padding-box;
 }
+#json-src::-webkit-scrollbar-track, #json-target::-webkit-scrollbar-track{ background:transparent; }
 
-.tooltip{font-size:12px;position:absolute;padding:5px;z-index:100000;opacity:.8;font-family:Microsoft Yahei}
-
-/*logo居中*/
-@media screen and (min-width: 768px) {
-  .navbar-header{position: absolute;left: 30px;top: 50%;transform: translateY(-50%);}
-  .navbar-brand{
-      position: relative;
-      color: powderblue;
-  }
-  .navbar-brand:before{
-      content: attr(text);
-      position: absolute;
-      z-index: 10;
-      color:tomato;
-      -webkit-mask:linear-gradient(to left, red, transparent );
-  }
-  .navbar-brand{letter-spacing: 5px;font-weight:bold;font-size: 25px;font-family: "Helvetica","Verdana","Arial",sans-serif;}
-  .navbar-text{letter-spacing: 1px; font-style: italic;font-size: 4px;font-family: "Arial";}
+/* 空状态（清空后右侧占位，由 js/jsontool.js 注入）；提示文字回归 UI 无衬线，仅图形保持等宽 */
+.jt-empty{
+    height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; user-select:none;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
 }
+.jt-empty-mark{ font-family:Menlo,Consolas,monospace; font-size:30px; font-weight:700; color:#e3e8ec; margin-bottom:10px; }
+.jt-empty-mark i{ font-style:normal; color:#f6ca7f; }
+.jt-empty-main{ font-size:13px; color:#b7c0ca; }
+.jt-empty-sub{ font-size:12px; color:#cdd4da; margin-top:6px; }
+.jt-empty-sub .fa{ margin-right:4px; }
 
-.fixed_footer {
+/* ---- SEO 内容区：限宽居中 + 标题层级 ---- */
+.seo-content{
+    background:#fafbfc; border-top:1px solid #eef1f4;
+    padding:52px 28px 72px; font-size:14px; color:#57606a; line-height:1.9;
+}
+.seo-inner{ max-width:860px; margin:0 auto; }
+.seo-content h1{ font-size:21px; color:#111827; font-weight:600; margin:0 0 18px; }
+.seo-content h1:after{ content:""; display:block; width:36px; height:3px; border-radius:2px; background:#1f2937; margin-top:12px; }
+.seo-content h2{ font-size:16px; color:#111827; font-weight:600; margin:34px 0 10px; }
+.seo-content h2:before{ content:""; display:inline-block; width:4px; height:14px; border-radius:2px; background:#1f2937; margin-right:9px; vertical-align:-1px; }
+.seo-content ul{ padding-left:20px; }
+.seo-content li{ margin:2px 0; }
+.seo-content li::marker{ color:#9ca3af; }
+.seo-content a{ color:#1f2937; text-decoration:underline; text-decoration-color:#cdd3d9; text-underline-offset:3px; }
+.seo-content a:hover{ color:#000; text-decoration-color:#6b7280; }
+.seo-content strong{ color:#374151; }
+.seo-content dl{ padding-left:0; }
+.seo-content dt{ color:#111827; font-weight:600; }
+.seo-content dd{ margin:0 0 12px; }
+
+/* ---- 页脚 ---- */
+.fixed_footer{
   position: fixed; /* 固定定位 */
   bottom: 0;       /* 紧贴底部 */
   left: 0;         /* 紧贴左侧 */
   width: 100%;     /* 宽度100% */
   text-align: center; /* 水平居中 */
-  line-height: 40px; /* 垂直居中，假设footer的高度是40px */
-  background: #f8f8f8; /* 背景颜色 */
+  line-height: 40px; /* 垂直居中，footer 高度 40px */
+  background:#fafbfc; border-top:1px solid #eef1f4;
 }
+.float_footer{
+  width: 100%;
+  text-align: center;
+  line-height: 40px;
+  background:#fafbfc; border-top:1px solid #eef1f4;
+}
+#copyright{ font-size:12px; color:#98a2ad; }
+#copyright a{ color:#6b7480; }
+#copyright a:hover{ color:#111827; }
+.foot-links{ margin-left:10px; font-size:11px; }
+.foot-links a{ color:#98a2ad; }
+.foot-links a:hover{ color:#111827; }
 
-.float_footer {
-  width: 100%;     /* 宽度100% */
-  text-align: center; /* 水平居中 */
-  line-height: 40px; /* 垂直居中，假设footer的高度是40px */
-  background: #f8f8f8; /* 背景颜色 */
-}
-
-/* ===== 备案公告条：桌面端锁定高度(44px)，略大于 main 的 calc 预留(42px)，使内容框底部压到页脚下方 2px（被不透明页脚盖住），消除底部漏字缝隙；flex 居中让文字不偏上。备案后公告条移除时，本段可一并删除 ===== */
-@media (min-width: 992px) {
-  #beian-notice { height: 44px; box-sizing: border-box; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-}
+/* ---- toastr 轻提示：扁平圆角，成功态随品牌墨石 ---- */
+#toast-container>div{ border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,.15); opacity:.98; }
+#toast-container>.toast-success{ background-color:#1f2937; }
 
 /* ===== 移动端适配（≤991px）：两栏由并排变上下堆叠，改为定高分屏；放开滚动；页脚不再固定遮挡；工具栏收窄避免错乱 ===== */
 @media (max-width: 991px) {
@@ -159,4 +202,7 @@ body {
   /* 「转换」下拉：移动端改为贴工具栏、近满宽下拉，避免绝对定位溢出屏幕右缘 */
   .jt-dropdown { position: static; }
   .jt-menu { left: 10px; right: 10px; min-width: 0; }
+  /* SEO 内容区收窄 */
+  .seo-content { padding: 36px 18px 56px; }
+  .seo-content h1 { font-size: 19px; }
 }

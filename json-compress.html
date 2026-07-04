@@ -44,7 +44,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/base.v3.css?v=4" />
+  <link rel="stylesheet" type="text/css" href="css/base.v3.css?v=5" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
@@ -77,7 +77,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/" text="Jsontool.cn">Jsontool.cn</a>
+        <a class="navbar-brand" href="/"><span class="brand-mark">{<i>:</i>}</span>Jsontool.cn</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
@@ -89,15 +89,10 @@
     </div>
   </nav>
 
-  <!-- 备案公告条：备案通过后整段删除，并把下方 main 两处 calc 改回 90px / 135px -->
-  <div id="beian-notice" style="background:#fff8e1;color:#8a6d3b;border-bottom:1px solid #f0e0a0;text-align:center;font-size:13px;line-height:1.7;padding:8px 40px;">
-    <i class="fa fa-bullhorn" style="margin-right:6px;"></i>
-    因 ICP 备案，本站 <strong>7.4–7.19</strong> 期间可能会无法访问或访问不稳定，备案完成后即恢复，敬请谅解。欢迎后续继续使用，谢谢。
-  </div>
 
   <main class="row-fluid">
     <div class="col-md-5" style="padding:0;">
-      <textarea id="json-src" placeholder="在此粘贴需要压缩的 JSON 数据..." class="form-control" style="height:calc(100vh - 132px);padding:20px;border:0;border-right:solid 1px #ddd;border-radius:0;resize:none;outline:none;">{
+      <textarea id="json-src" placeholder="在此粘贴需要压缩的 JSON 数据..." class="form-control" style="height:calc(100vh - 90px);padding:20px;border:0;border-right:solid 1px #e8ebee;border-radius:0;resize:none;outline:none;">{
     "name": "JsonTool",
     "version": "3.0",
     "features": [
@@ -127,45 +122,47 @@
         <button type="button" class="jt-btn danger clear" aria-label="清空"><i class="fa fa-trash-o"></i><span>清空</span></button>
         <div class="jt-search"><i class="fa fa-search"></i><input id="json-search" type="text" placeholder="搜索结果…" /></div>
       </div>
-      <div id="json-target" style="height:calc(100vh - 177px);padding:20px;border-right:solid 1px #ddd;border-radius:0;resize:none;overflow-y:scroll;outline:none;font-family:monospace;"></div>
+      <div id="json-target" style="height:calc(100vh - 133px);padding:20px;border-right:solid 1px #e8ebee;border-radius:0;resize:none;overflow-y:scroll;outline:none;font-family:monospace;"></div>
     </div>
   </main>
 
-<script src="js/jquery.json.js?v=3"></script>
+<script src="js/jquery.json.js?v=4"></script>
 <script src="js/jquery.xml2json.js?v=2"></script>
 <script src="js/jquery.json2xml.js?v=2"></script>
 <script src="js/vendor/lossless-json.umd.js?v=2"></script>
 <script src="js/vendor/jsonrepair.umd.min.js?v=2"></script>
 <script src="js/jsontool-core.js?v=2"></script>
-<script src="js/jsontool.js?v=3"></script>
+<script src="js/jsontool.js?v=4"></script>
 
-<section class="seo-content" style="padding:30px 40px 60px;background:#f9f9f9;border-top:1px solid #eee;font-size:14px;color:#666;line-height:1.8;">
-  <h1 style="font-size:22px;color:#333;margin-top:0;">JSON 在线压缩工具</h1>
+<section class="seo-content">
+  <div class="seo-inner">
+  <h1>JSON 在线压缩工具</h1>
   <p><strong>JSON 压缩</strong>（JSON Minify）是指去除 JSON 数据中的所有不必要字符（空格、换行、制表符、缩进），将其转换为单行最小体积格式。压缩后的 JSON 数据占用更少的存储空间和网络带宽，适用于 API 传输、数据存储等场景。</p>
 
-  <h2 style="font-size:17px;color:#333;">为什么要压缩 JSON？</h2>
-  <ul style="padding-left:20px;">
+  <h2>为什么要压缩 JSON？</h2>
+  <ul>
     <li><strong>减少传输体积</strong>：压缩后的 JSON 通常可减少 30%-60% 的字符数</li>
     <li><strong>加快网络传输</strong>：更小的数据包意味着更快的 API 响应速度</li>
     <li><strong>节省存储空间</strong>：在数据库或缓存中存储压缩 JSON 可降低存储成本</li>
     <li><strong>提升页面性能</strong>：内嵌在 HTML 中的 JSON 配置数据压缩后可加快页面加载</li>
   </ul>
 
-  <h2 style="font-size:17px;color:#333;">相关工具</h2>
-  <p><a href="/" style="color:#15b374;">JSON 在线解析</a> · <a href="/json-format.html" style="color:#15b374;">JSON 格式优化</a> · <a href="/json-parse.html" style="color:#15b374;">JSON 解析工具</a> · <a href="/json-validate.html" style="color:#15b374;">JSON 校验</a> · <a href="/courses/" style="color:#15b374;">JSON 教程</a></p>
+  <h2>相关工具</h2>
+  <p><a href="/">JSON 在线解析</a> · <a href="/json-format.html">JSON 格式优化</a> · <a href="/json-parse.html">JSON 解析工具</a> · <a href="/json-validate.html">JSON 校验</a> · <a href="/courses/">JSON 教程</a></p>
+  </div>
 </section>
 
 <footer class="fixed_footer">
     <div id="copyright">
         &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>
-        <span style="margin-left:10px;font-size:11px;">
-          <a href="/json-format.html" style="color:#999;">JSON格式化</a> ·
-          <a href="/json-parse.html" style="color:#999;">JSON解析</a> ·
-          <a href="/json-validate.html" style="color:#999;">JSON校验</a> ·
-          <a href="/json-compress.html" style="color:#999;">JSON压缩</a> ·
-          <a href="/json-to-xml.html" style="color:#999;">JSON转XML</a> ·
-          <a href="/courses/" style="color:#999;">JSON教程</a> ·
-          <a href="/sitemap-page.html" style="color:#999;">站点地图</a>
+        <span class="foot-links">
+          <a href="/json-format.html">JSON格式化</a> ·
+          <a href="/json-parse.html">JSON解析</a> ·
+          <a href="/json-validate.html">JSON校验</a> ·
+          <a href="/json-compress.html">JSON压缩</a> ·
+          <a href="/json-to-xml.html">JSON转XML</a> ·
+          <a href="/courses/">JSON教程</a> ·
+          <a href="/sitemap-page.html">站点地图</a>
         </span>
     </div>
 </footer>
