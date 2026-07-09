@@ -181,6 +181,8 @@ body{
 #copyright{ font-size:12px; color:#98a2ad; }
 #copyright a{ color:#6b7480; }
 #copyright a:hover{ color:#111827; }
+#copyright .beian-link{ margin-left:10px; color:#98a2ad; }
+#copyright .beian-link:hover{ color:#111827; }
 .foot-links{ margin-left:10px; font-size:11px; }
 .foot-links a{ color:#98a2ad; }
 .foot-links a:hover{ color:#111827; }
