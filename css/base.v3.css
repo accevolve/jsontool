@@ -52,6 +52,15 @@ body{
   .navbar-header{ position:absolute; left:30px; top:50%; transform:translateY(-50%); }
 }
 
+/* 桌面端导航加高 60px + 徽标微放大（移动端保持 50px；工具页内联 calc 与此联动：100px/143px） */
+@media (min-width: 992px) {
+  body{ padding-top:60px; }
+  .navbar-fixed-top{ min-height:60px; }
+  .navbar-default .navbar-nav>li>a{ padding-top:20px; padding-bottom:20px; }
+  .navbar-default .navbar-brand{ font-size:20px; }
+  .brand-mark{ height:24px; padding:0 6px; font-size:14px; border-radius:7px; }
+}
+
 /* ===== 工具栏：图标+文字按钮，主操作直显 +「转换」下拉 ===== */
 .jt-toolbar{
     display:flex; align-items:center; flex-wrap:wrap; gap:2px;
