@@ -192,6 +192,7 @@ body{
 #copyright a:hover{ color:#111827; }
 #copyright .beian-link{ margin-left:10px; color:#98a2ad; }
 #copyright .beian-link:hover{ color:#111827; }
+#copyright .gongan-beian img{ height:14px; width:auto; vertical-align:-3px; margin-right:4px; }
 .foot-links{ margin-left:10px; font-size:11px; }
 .foot-links a{ color:#98a2ad; }
 .foot-links a:hover{ color:#111827; }
