@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>JSON错误排查 - 报错原因与修复 | JsonTool.cn</title>
+
+  <meta name="description" content="JSON解析报错怎么排查？汇总Unexpected token、尾随逗号、BOM等常见错误，提供原因定位、修复步骤和在线工具。" />
+  <meta name="keywords" content="JSON错误排查,JSON报错,JSON解析错误,Unexpected token,JSON修复,JSON排错" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="applicable-device" content="pc,mobile" />
+  <meta name="MobileOptimized" content="width" />
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="baidu-site-verification" content="code-K26efHPQnS" />
+  <link rel="canonical" href="https://jsontool.cn/courses/debug/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="JSON错误排查 - 报错原因与修复 | JsonTool.cn" />
+  <meta property="og:description" content="JSON解析报错怎么排查？汇总Unexpected token、尾随逗号、BOM等常见错误，提供原因定位、修复步骤和在线工具。" />
+  <meta property="og:url" content="https://jsontool.cn/courses/debug/" />
+  <meta property="og:site_name" content="JsonTool.cn" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:image" content="https://jsontool.cn/img/og-cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://jsontool.cn/img/og-cover.png" />
+
+  <link rel="shortcut icon" href="/img/favicon.ico" />
+  <link rel="bookmark" href="/img/favicon.ico" type="image/x-icon" />
+
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/base.v3.css?v=7" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "JSON错误排查",
+    "description": "JSON解析报错怎么排查？汇总Unexpected token、尾随逗号、BOM等常见错误，提供原因定位、修复步骤和在线工具。",
+    "url": "https://jsontool.cn/courses/debug/",
+    "inLanguage": "zh-CN",
+    "datePublished": "2026-10-30",
+    "dateModified": "2026-10-30",
+    "isPartOf": {"@type": "WebSite", "name": "JsonTool.cn", "url": "https://jsontool.cn/"},
+    "hasPart": [
+      {"@type": "TechArticle", "name": "Unexpected token报错：原因、定位与修复", "url": "https://jsontool.cn/courses/debug/unexpected-token"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://jsontool.cn/"},
+      {"@type": "ListItem", "position": 2, "name": "JSON教程", "item": "https://jsontool.cn/courses/"},
+      {"@type": "ListItem", "position": 3, "name": "错误排查", "item": "https://jsontool.cn/courses/debug/"}
+    ]
+  }
+  </script>
+
+  <style>
+    .topic-wrap{max-width:960px;margin:0 auto;padding:24px 15px 48px;}
+    .breadcrumb-nav{font-size:12px;color:#98a2ad;margin:4px 0 18px;}
+    .breadcrumb-nav a{color:#6b7480;}
+    .breadcrumb-nav a:hover{color:#111827;}
+    .breadcrumb-nav .sep{margin:0 6px;color:#c3cad3;}
+    .topic-content{font-size:15px;line-height:1.9;color:#374151;}
+    .topic-content h1{font-size:28px;line-height:1.35;color:#1f2937;margin:0 0 10px;font-weight:700;}
+    .topic-content h2{font-size:20px;line-height:1.45;color:#1f2937;margin:34px 0 14px;padding-top:10px;border-top:1px solid #eef1f4;font-weight:700;}
+    .topic-content p{margin:0 0 14px;}
+    .topic-content ul,.topic-content ol{margin:0 0 16px;padding-left:22px;}
+    .topic-content li{margin:6px 0;}
+    .topic-content a{display:inline;color:#1f2937;text-decoration:underline;text-underline-offset:2px;}
+    .topic-content a:hover{color:#000;}
+    .topic-content code{font-size:.92em;color:#1f2937;background:#f3f4f6;padding:2px 5px;border-radius:4px;}
+    .topic-meta{font-size:12px;color:#98a2ad;margin:0 0 18px;}
+    .topic-lead{font-size:16px;line-height:1.85;color:#374151;margin:0 0 14px;}
+    .step-box{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:16px 18px;margin:0 0 20px;}
+    .step-box h2{margin:0 0 10px;padding:0;border:0;font-size:18px;}
+    .step-box ol{margin:0;padding-left:22px;}
+    .table-wrap{margin:0 0 18px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .topic-content table{width:100%;min-width:620px;border-collapse:collapse;font-size:14px;line-height:1.7;}
+    .topic-content th,.topic-content td{border:1px solid #e5e7eb;padding:9px 11px;text-align:left;vertical-align:top;}
+    .topic-content th{background:#f8fafc;color:#1f2937;font-weight:600;white-space:nowrap;}
+    .topic-content tr:nth-child(even) td{background:#fcfcfd;}
+    .update-note{font-size:13px;line-height:1.8;color:#6b7480;background:#f8fafc;border-radius:8px;padding:10px 14px;margin:20px 0 0;}
+    @media (max-width:767px){
+      .topic-content h1{font-size:24px;}
+      .topic-content h2{font-size:18px;}
+      .topic-content table{min-width:540px;font-size:13px;}
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" aria-controls="navbar" aria-expanded="false">
+          <span class="sr-only">切换导航</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><span class="brand-mark">{<i>:</i>}</span>Jsontool.cn</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="/">首页</a></li>
+          <li><a href="/courses/">教程</a></li>
+          <li><a href="mailto:jsontool@163.com">投诉/建议</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="topic-wrap">
+    <nav class="breadcrumb-nav" aria-label="面包屑">
+      <a href="/">首页</a><span class="sep">/</span><a href="/courses/">JSON教程</a><span class="sep">/</span><span>错误排查</span>
+    </nav>
+
+    <article class="topic-content">
+      <h1>JSON错误排查</h1>
+      <p class="topic-meta">最后更新：2026年10月30日</p>
+
+      <p class="topic-lead">JSON解析报错通常不是单个字符的问题，而是数据来源、语法或编码问题。本专题面向已经拿到报错、需要快速定位和修复的开发者，按报错类型整理原因、定位方法和修复步骤。基础语法请先看<a href="/courses/beginner/json-syntax">JSON语法基础</a>。</p>
+
+      <div class="step-box">
+        <h2>先做这三步</h2>
+        <ol>
+          <li>看完整报错和HTTP状态码，确认是JSON语法问题，还是接口返回了HTML、空响应或被截断。</li>
+          <li>把原始JSON粘贴到<a href="/json-validate">JSON校验工具</a>，定位错误所在的行和列。</li>
+          <li>按报错关键字查看下面的专题文章。修复后重新校验，不要只看“能解析”就结束。</li>
+        </ol>
+      </div>
+
+      <h2>专题目录</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>报错或场景</th><th>典型信息</th><th>排查指南</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>解析错误</td>
+              <td><code>Unexpected token</code>、<code>Unexpected token &lt;</code>、<code>Unexpected token o</code>、<code>Unexpected token u</code></td>
+              <td><a href="/courses/debug/unexpected-token">Unexpected token报错排查</a></td>
+            </tr>
+            <tr>
+              <td>数据来源</td>
+              <td>接口返回HTML、空响应、响应被截断</td>
+              <td><a href="/courses/debug/unexpected-token">同一篇已覆盖</a></td>
+            </tr>
+            <tr>
+              <td>非标准JSON</td>
+              <td>尾随逗号、单引号、注释、未加引号的key、BOM</td>
+              <td><a href="/courses/debug/unexpected-token">同一篇已覆盖</a></td>
+            </tr>
+            <tr>
+              <td>其他解析错误</td>
+              <td><code>Unexpected end of JSON input</code></td>
+              <td>持续补充</td>
+            </tr>
+            <tr>
+              <td>精度与编码</td>
+              <td>大整数精度丢失、Unicode转义、中文乱码</td>
+              <td>持续补充</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>相关教程</h2>
+      <ul>
+        <li><a href="/courses/beginner/json-parse-error">第8天：JSON解析错误处理</a>：先区分语法错误、数据验证问题和运行时问题。</li>
+        <li><a href="/courses/beginner/json-syntax">JSON语法基础</a>：引号、逗号、括号和键值对规则。</li>
+        <li><a href="/courses/beginner/json-data-type">JSON数据类型</a>：字符串、数字、布尔值、null、对象和数组。</li>
+      </ul>
+
+      <h2>常用工具</h2>
+      <ul>
+        <li><a href="/json-validate">JSON校验工具</a>：显示解析错误和行列位置，支持大整数原始精度。</li>
+        <li><a href="/json-format">JSON格式化工具</a>：格式化、压缩和一键修复。</li>
+        <li><a href="/json-parse">JSON解析工具</a>：解析JSON字符串并查看结构。</li>
+      </ul>
+
+      <p class="update-note">专题会按报错类型持续补充，优先覆盖<code>Unexpected end of JSON input</code>、尾随逗号与单引号、BOM、大整数精度。遇到未覆盖的报错，可通过页脚的“投诉/建议”反馈。</p>
+    </article>
+  </main>
+
+  <footer class="float_footer">
+    <div id="copyright">
+      &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>
+      <span class="foot-links">
+        <a href="/json-format">JSON格式化</a> ·
+        <a href="/json-parse">JSON解析</a> ·
+        <a href="/json-validate">JSON校验</a> ·
+        <a href="/json-compress">JSON压缩</a> ·
+        <a href="/json-to-xml">JSON转XML</a> ·
+        <a href="/courses/">JSON教程</a> ·
+        <a href="/sitemap-page">站点地图</a>
+      </span>
+      <a class="beian-link" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow">浙ICP备2026052185号-1</a> <a class="beian-link gongan-beian" href="https://beian.mps.gov.cn/#/query/webSearch?code=33011002020038" target="_blank" rel="noopener nofollow noreferrer"><img src="/img/police-beian.png" alt="公安备案图标" />浙公网安备33011002020038号</a>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var toggle=document.querySelector('.navbar-toggle');
+      var nav=document.getElementById('navbar');
+      if(!toggle||!nav)return;
+      toggle.addEventListener('click',function(){
+        var open=nav.classList.toggle('in');
+        toggle.setAttribute('aria-expanded',open?'true':'false');
+        toggle.classList.toggle('collapsed',!open);
+      });
+    })();
+  </script>
+  <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+  <script>if(window.LA){LA.init({id:"3QI5NUMVM8jytlw7",ck:"3QI5NUMVM8jytlw7"})}</script>
+</body>
+</html>

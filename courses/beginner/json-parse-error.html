@@ -142,6 +142,7 @@
 </ol>
 <h2 id="validator">使用在线工具辅助检查</h2>
 <p>可以把待检查内容粘贴到<a href="/json-validate">JSON在线校验工具</a>。合法数据会显示格式化结果；不合法数据会给出解析错误及行列位置。若使用工具栏中的“修复”功能，应把结果视为候选修改并逐项核对，尤其不要让自动修复改变金额、标识符或字段含义。</p>
+<p>如果错误提示是<code>Unexpected token</code>，可以查看<a href="/courses/debug/unexpected-token">Unexpected token 报错排查指南</a>，按报错关键字逐项定位。</p>
 <h2 id="javascript-catch">在JavaScript中捕获解析错误</h2>
 <pre><code class="lang-javascript">const brokenJson = '{"name":"JsonTool","items":[1,2,]}';
 

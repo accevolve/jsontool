@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>JSON报错Unexpected token：原因、定位与修复</title>
+
+  <meta name="description" content="JSON解析报错Unexpected token怎么解决？覆盖Unexpected token &lt;、o、u、单引号、尾随逗号、BOM等原因，并给出可直接复制的修复示例。" />
+  <meta name="keywords" content="Unexpected token,JSON报错,JSON解析错误,Unexpected token in JSON,Unexpected token &lt;,Unexpected token o,Unexpected token u,JSON.parse报错" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="applicable-device" content="pc,mobile" />
+  <meta name="MobileOptimized" content="width" />
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="baidu-site-verification" content="code-K26efHPQnS" />
+  <link rel="canonical" href="https://jsontool.cn/courses/debug/unexpected-token" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="JSON报错Unexpected token：原因、定位与修复" />
+  <meta property="og:description" content="JSON解析报错Unexpected token怎么解决？覆盖Unexpected token &lt;、o、u、单引号、尾随逗号、BOM等原因，并给出可直接复制的修复示例。" />
+  <meta property="og:url" content="https://jsontool.cn/courses/debug/unexpected-token" />
+  <meta property="og:site_name" content="JsonTool.cn" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:image" content="https://jsontool.cn/img/og-cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="article:published_time" content="2026-10-30" />
+  <meta property="article:modified_time" content="2026-10-30" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://jsontool.cn/img/og-cover.png" />
+
+  <link rel="shortcut icon" href="/img/favicon.ico" />
+  <link rel="bookmark" href="/img/favicon.ico" type="image/x-icon" />
+
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/base.v3.css?v=7" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Unexpected token报错：原因、定位与修复",
+    "description": "JSON解析报错Unexpected token怎么解决？覆盖Unexpected token \u003c、o、u、单引号、尾随逗号、BOM等原因，并给出可直接复制的修复示例。",
+    "inLanguage": "zh-CN",
+    "datePublished": "2026-10-30",
+    "dateModified": "2026-10-30",
+    "mainEntityOfPage": "https://jsontool.cn/courses/debug/unexpected-token",
+    "author": {"@type": "Organization", "name": "JsonTool.cn", "url": "https://jsontool.cn/"},
+    "publisher": {"@type": "Organization", "name": "JsonTool.cn", "logo": {"@type": "ImageObject", "url": "https://jsontool.cn/img/logo.png"}}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://jsontool.cn/"},
+      {"@type": "ListItem", "position": 2, "name": "JSON教程", "item": "https://jsontool.cn/courses/"},
+      {"@type": "ListItem", "position": 3, "name": "错误排查", "item": "https://jsontool.cn/courses/debug/"},
+      {"@type": "ListItem", "position": 4, "name": "Unexpected token", "item": "https://jsontool.cn/courses/debug/unexpected-token"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Unexpected token \u003c是什么意思？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "服务端返回了HTML或XML，不是JSON。常见于接口地址写错、登录态失效被重定向、后端500返回错误页、Nginx或网关改写响应。先看Network里的状态码和Content-Type，不要先改JSON。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Unexpected token o怎么解决？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "传给JSON.parse的是一个对象，被隐式转成了[object Object]。如果数据已经是对象，直接使用。如果需要字符串，用JSON.stringify。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Unexpected token u怎么解决？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "传入了undefined。常见于localStorage.getItem返回null、接口没有响应体、变量名写错。先判断空值，再解析。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Unexpected token '单引号怎么修？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JSON只允许双引号。把单引号换成双引号，字符串里的撇号需要转义。也可以用本站的一键修复。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "JSON可以有注释或尾随逗号吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "标准JSON不允许。JSONC和JSON5允许注释和尾随逗号，但浏览器原生JSON.parse不支持。需要注释时改用YAML或JSONC工具。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "为什么本地能解析，线上报错？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "线上可能返回了HTML错误页、被网关改写、编码不同或响应被截断。打印response.status、Content-Type和raw.slice(0, 200)再判断。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "修复后大数字会变吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "本站格式化和压缩使用LosslessJSON，保留原数字。修复后仍建议检查关键ID。转XML时大整数可能不保真，长ID建议先作为字符串处理。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "本站会上传我的JSON吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "格式化、校验、修复在浏览器本地执行，不会主动上传输入内容。页面会加载统计脚本，你可以打开Network面板验证请求。输入默认保存在本机localStorage，公共电脑用完点“清空”。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    .article-wrap{max-width:1180px;margin:0 auto;padding:24px 15px 48px;}
+    .breadcrumb-nav{font-size:12px;color:#98a2ad;margin:4px 0 18px;}
+    .breadcrumb-nav a{color:#6b7480;}
+    .breadcrumb-nav a:hover{color:#111827;}
+    .breadcrumb-nav .sep{margin:0 6px;color:#c3cad3;}
+
+    .article-content{font-size:15px;line-height:1.9;color:#374151;}
+    .article-content h1{font-size:28px;line-height:1.35;color:#1f2937;margin:0 0 10px;font-weight:700;letter-spacing:.2px;}
+    .article-content h2{font-size:21px;line-height:1.45;color:#1f2937;margin:36px 0 14px;padding-top:10px;border-top:1px solid #eef1f4;font-weight:700;}
+    .article-content h3{font-size:17px;line-height:1.5;color:#1f2937;margin:24px 0 10px;font-weight:600;}
+    .article-content p{margin:0 0 14px;}
+    .article-content ul,.article-content ol{margin:0 0 16px;padding-left:22px;}
+    .article-content li{margin:5px 0;}
+    .article-content a{display:inline;color:#1f2937;text-decoration:underline;text-underline-offset:2px;}
+    .article-content a:hover{color:#000;}
+    .article-content strong{color:#1f2937;}
+    .article-content code{font-size:.92em;color:#1f2937;background:#f3f4f6;padding:2px 5px;border-radius:4px;}
+    .article-content pre{margin:0 0 18px;padding:16px 18px;background:#1f2937;color:#e5e7eb;border:0;border-radius:10px;overflow-x:auto;line-height:1.65;font-size:13px;word-break:normal;overflow-wrap:normal;}
+    .article-content pre code{display:block;padding:0;background:none;color:inherit;border-radius:0;font-size:inherit;white-space:pre;word-break:normal;overflow-wrap:normal;}
+    .article-content blockquote{margin:0 0 18px;padding:12px 16px;background:#f8fafc;border-left:3px solid #1f2937;color:#4b5563;}
+    .table-wrap{margin:0 0 18px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .article-content table{width:100%;min-width:620px;border-collapse:collapse;font-size:14px;line-height:1.7;}
+    .article-content th,.article-content td{border:1px solid #e5e7eb;padding:9px 11px;text-align:left;vertical-align:top;}
+    .article-content th{background:#f8fafc;color:#1f2937;font-weight:600;white-space:nowrap;}
+    .article-content tr:nth-child(even) td{background:#fcfcfd;}
+    .table-note{font-size:12px;color:#98a2ad;margin:-8px 0 18px;}
+
+    .article-meta{font-size:12px;color:#98a2ad;margin:0 0 18px;}
+    .article-lead{font-size:16px;line-height:1.85;color:#374151;margin:0 0 14px;}
+    .quick-check{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:16px 18px;margin:0 0 20px;}
+    .quick-check h2{margin:0 0 10px;padding:0;border:0;font-size:18px;}
+    .quick-check table{min-width:0;}
+    .fix-box{background:#fff8e6;border:1px solid #f3d18b;border-radius:12px;padding:16px 18px;margin:0 0 20px;}
+    .fix-box h2{margin:0 0 10px;padding:0;border:0;font-size:18px;}
+    .fix-box ol{margin:0 0 12px;padding-left:22px;}
+    .trust-note{font-size:13px;line-height:1.8;color:#6b7480;background:#f8fafc;border-radius:8px;padding:10px 14px;margin:0 0 24px;}
+    .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 0;}
+    .cta-btn{display:inline-block;padding:9px 16px;border-radius:8px;background:#1f2937;color:#fff!important;text-decoration:none!important;font-weight:600;font-size:14px;line-height:1.4;}
+    .cta-btn:hover{background:#111827;color:#fff!important;}
+    .cta-btn.secondary{background:#fff;color:#1f2937!important;border:1px solid #d1d5db;}
+    .cta-btn.secondary:hover{background:#f3f4f6;color:#111827!important;}
+
+    .article-sidebar{padding-top:4px;}
+    .side-card{background:#fafbfc;border:1px solid #eef1f4;border-radius:10px;padding:14px 16px;margin-bottom:16px;}
+    .side-title{font-size:14px;font-weight:700;color:#1f2937;margin:0 0 8px;}
+    .side-card ul{list-style:none;margin:0;padding:0;font-size:13px;line-height:1.8;}
+    .side-card li{margin:3px 0;}
+    .side-card a{display:inline;color:#4b5563;}
+    .side-card a:hover{color:#111827;text-decoration:underline;}
+    .side-card .current{color:#1f2937;font-weight:600;}
+    .side-cta p{margin:0 0 10px;font-size:13px;line-height:1.8;color:#6b7480;}
+    .side-cta .cta-btn{width:100%;text-align:center;padding:8px 12px;}
+
+    .faq-item{border-top:1px solid #eef1f4;padding:14px 0 2px;}
+    .faq-item h3{margin:0 0 6px;font-size:16px;}
+    .faq-item p{margin:0 0 10px;}
+    .related-list{padding-left:22px;}
+    .related-list li{margin:6px 0;}
+
+    @media (max-width:991px){
+      .article-wrap{padding-top:18px;}
+      .article-content{font-size:15px;}
+      .article-content h1{font-size:24px;}
+      .article-content h2{font-size:19px;}
+      .article-content pre{font-size:12px;padding:14px;}
+      .article-sidebar{margin-top:8px;}
+      .side-card{padding:12px 14px;}
+    }
+    @media (max-width:767px){
+      .article-content table{min-width:560px;font-size:13px;}
+      .cta-row{flex-direction:column;align-items:flex-start;}
+      .cta-btn{width:100%;text-align:center;}
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" aria-controls="navbar" aria-expanded="false">
+          <span class="sr-only">切换导航</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><span class="brand-mark">{<i>:</i>}</span>Jsontool.cn</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="/">首页</a></li>
+          <li><a href="/courses/">教程</a></li>
+          <li><a href="mailto:jsontool@163.com">投诉/建议</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="article-wrap">
+    <nav class="breadcrumb-nav" aria-label="面包屑">
+      <a href="/">首页</a><span class="sep">/</span><a href="/courses/">JSON教程</a><span class="sep">/</span><a href="/courses/debug/">错误排查</a><span class="sep">/</span><span>Unexpected token</span>
+    </nav>
+
+    <div class="row">
+      <article class="col-md-9 article-content">
+        <h1>Unexpected token报错：原因、定位与修复</h1>
+        <p class="article-meta">最后更新：2026年10月30日 · 当前文案基于Node V8实测，旧版文案用于对照</p>
+
+        <p class="article-lead">JSON解析时看到<code>Unexpected token</code>，通常不是这个字符本身有问题，而是它前面的引号、逗号、括号，或者数据来源出了问题。本文按报错里的关键字逐个拆解，并给出可直接复制的修复示例。</p>
+
+        <p>本文覆盖：<code>Unexpected token in JSON</code>、<code>Unexpected token &lt; in JSON at position 0</code>、<code>Unexpected token o in JSON at position 1</code>、<code>Unexpected token u in JSON at position 0</code>、<code>Unexpected token ' in JSON</code>等常见变体。</p>
+
+        <div class="quick-check">
+          <h2>30秒判断</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>报错里的关键字</th><th>大概率原因</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>&lt;</code></td><td>接口返回了HTML或XML，不是JSON</td></tr>
+                <tr><td><code>[object Object]</code></td><td>传入了已经解析过的对象</td></tr>
+                <tr><td><code>undefined</code></td><td>传入了<code>undefined</code></td></tr>
+                <tr><td><code>'</code></td><td>用了单引号</td></tr>
+                <tr><td><code>]</code>、<code>}</code>、<code>,</code></td><td>尾随逗号、缺少逗号或括号不匹配</td></tr>
+                <tr><td>不可见字符</td><td>文件带BOM</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="fix-box">
+          <h2>最快修复</h2>
+          <ol>
+            <li>把原始JSON和完整报错粘贴到<a href="/json-validate">JSON校验工具</a>。</li>
+            <li>工具会标出错误所在的行和列。先检查报错位置前1至2行。</li>
+            <li>如果是尾随逗号、单引号、注释、BOM等常见问题，点“修复”。否则按下面的关键字对照表排查。</li>
+          </ol>
+          <div class="cta-row">
+            <a class="cta-btn" href="/json-validate">立即定位错误 →</a>
+            <a class="cta-btn secondary" href="/json-format">一键修复 →</a>
+          </div>
+        </div>
+
+        <p class="trust-note">本站数据在浏览器本地处理，不上传服务器。修复需要手动点击，不会自动改你的数据。</p>
+
+        <h2 id="understand">先看懂报错：position、行号列号和新旧文案</h2>
+        <p>JSON解析器会逐个字符读取输入。遇到不符合语法的字符时，解析器抛出<code>Unexpected token</code>。报错里的<code>position</code>是解析器失败的位置，真正的原因常常在它前面1至2行。</p>
+        <p>V8是Chrome、Edge、Node.js使用的JavaScript引擎。<code>JSON.parse</code>的报错文案在不同版本中改过，下面两种写法都可能出现。</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>场景</th><th>较早的Chrome/Node</th><th>较新的Chrome/Node</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>单引号</td>
+                <td><code>Unexpected token ' in JSON at position 14</code></td>
+                <td><code>Unexpected token ''', ... is not valid JSON</code></td>
+              </tr>
+              <tr>
+                <td>HTML响应</td>
+                <td><code>Unexpected token &lt; in JSON at position 0</code></td>
+                <td><code>Unexpected token '&lt;', "&lt;!DOCTYPE html&gt;..." is not valid JSON</code></td>
+              </tr>
+              <tr>
+                <td>传入对象</td>
+                <td><code>Unexpected token o in JSON at position 1</code></td>
+                <td><code>"[object Object]" is not valid JSON</code></td>
+              </tr>
+              <tr>
+                <td>传入undefined</td>
+                <td><code>Unexpected token u in JSON at position 0</code></td>
+                <td><code>"undefined" is not valid JSON</code></td>
+              </tr>
+              <tr>
+                <td>对象尾随逗号</td>
+                <td><code>Unexpected token }</code>（旧版常见）</td>
+                <td><code>Expected double-quoted property name in JSON at position 53 (line 5 column 1)</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">表中的位置和行列以实际输入为准。单引号在键名位置时，较新V8通常报<code>Expected property name or '}'</code>；在值位置时报<code>Unexpected token '''</code>。Firefox和Safari的报错文案不同，但原因和修复方法相同。</p>
+
+        <h2 id="keywords">按报错关键字查原因</h2>
+        <p>先按报错里出现的关键字分流，再进入下面的详细原因。新旧文案都能用这张表。</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>报错关键字</th><th>常见原因</th><th>最小示例</th><th>修复</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>&lt;</code></td>
+                <td>服务端返回HTML或XML</td>
+                <td><code>&lt;!DOCTYPE html&gt;</code></td>
+                <td>查状态码、Content-Type、接口地址、登录跳转、代理</td>
+              </tr>
+              <tr>
+                <td><code>[object Object]</code></td>
+                <td>传入对象</td>
+                <td><code>JSON.parse({a:1})</code></td>
+                <td>直接使用对象，需要字符串用<code>JSON.stringify</code></td>
+              </tr>
+              <tr>
+                <td><code>undefined</code></td>
+                <td>传入undefined</td>
+                <td><code>JSON.parse(undefined)</code></td>
+                <td>检查变量、响应体、localStorage</td>
+              </tr>
+              <tr>
+                <td><code>'</code></td>
+                <td>单引号</td>
+                <td><code>{'a':1}</code></td>
+                <td>改成双引号，或用修复</td>
+              </tr>
+              <tr>
+                <td><code>Expected property name or '}'</code></td>
+                <td>单引号键名、注释、未加引号的key</td>
+                <td><code>{'a':1}</code></td>
+                <td>改双引号、删注释、给key加引号</td>
+              </tr>
+              <tr>
+                <td><code>Expected double-quoted property name</code></td>
+                <td>对象尾随逗号</td>
+                <td><code>{"a":1,}</code></td>
+                <td>删除最后一个逗号</td>
+              </tr>
+              <tr>
+                <td><code>]</code>、<code>}</code>、<code>,</code></td>
+                <td>尾随逗号、缺逗号、括号不匹配</td>
+                <td><code>{"a":[1,2}</code></td>
+                <td>删除多余逗号或补齐括号</td>
+              </tr>
+              <tr>
+                <td>不可见字符</td>
+                <td>BOM</td>
+                <td><code>\uFEFF{"a":1}</code></td>
+                <td>另存为无BOM，或使用<code>replace(/^\uFEFF/,'')</code></td>
+              </tr>
+              <tr>
+                <td><code>\</code></td>
+                <td>非法转义</td>
+                <td><code>{"path":"C:\Users"}</code></td>
+                <td>双反斜杠<code>C:\\Users</code></td>
+              </tr>
+              <tr>
+                <td><code>NaN</code>、<code>Infinity</code></td>
+                <td>非法数字</td>
+                <td><code>{"n":NaN}</code></td>
+                <td>用<code>null</code>或字符串</td>
+              </tr>
+              <tr>
+                <td><code>@</code>、<code>=</code></td>
+                <td>Java toString等非JSON文本</td>
+                <td><code>User@hash{id=1}</code></td>
+                <td>先转标准JSON，当前一键修复不处理</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="common">五种最高频原因与修复</h2>
+
+        <h3>Unexpected token &lt;：接口返回了HTML</h3>
+        <p>这是最常见、也最容易误判的一种。<code>&lt;</code>不是JSON里的字符，它通常意味着你拿到的是一个HTML页面。</p>
+        <pre><code>Unexpected token '&lt;', "&lt;!DOCTYPE html&gt;..." is not valid JSON</code></pre>
+        <p>最小复现：</p>
+        <pre><code>const res = await fetch('/api/user');
+const data = await res.json();</code></pre>
+        <p>先别改JSON，先看请求：</p>
+        <pre><code>const res = await fetch('/api/user');
+const raw = await res.text();
+console.log(res.status);
+console.log(res.headers.get('content-type'));
+console.log(raw.slice(0, 200));</code></pre>
+        <p>常见原因：</p>
+        <ul>
+          <li>接口地址写错，命中了前端路由，返回<code>index.html</code>。</li>
+          <li>登录态失效，被重定向到登录页。</li>
+          <li>后端返回500，响应体是HTML错误页。</li>
+          <li>Nginx或网关把JSON响应替换成了HTML。</li>
+          <li>本地代理配置错误。</li>
+        </ul>
+        <p>修复：确认<code>status</code>是200，<code>Content-Type</code>包含<code>application/json</code>，再解析。不要把HTML当JSON修。可以先把真实响应粘贴到<a href="/json-validate">JSON校验工具</a>，确认它到底是不是JSON。</p>
+
+        <h3>尾随逗号</h3>
+        <p>最小复现：</p>
+        <pre><code>{
+  "name": "Alice",
+  "age": 30,
+  "city": "Tokyo",
+}</code></pre>
+        <p>报错通常包含<code>Expected double-quoted property name</code>，较新V8可能带<code>(line 5 column 1)</code>。</p>
+        <p>修复：删除最后一个逗号。</p>
+        <pre><code>{
+  "name": "Alice",
+  "age": 30,
+  "city": "Tokyo"
+}</code></pre>
+        <p>也可以直接粘贴到<a href="/json-format">JSON格式化工具</a>，点“修复”。</p>
+
+        <h3>单引号</h3>
+        <p>最小复现：</p>
+        <pre><code>{
+  "name": "Alice",
+  "city": 'Tokyo'
+}</code></pre>
+        <p>报错通常包含<code>Unexpected token '''</code>。</p>
+        <p>如果单引号出现在键名位置，较新V8通常报<code>Expected property name or '}'</code>。</p>
+        <p>修复：JSON只允许双引号。改成双引号，字符串里的撇号需要转义。</p>
+        <pre><code>{
+  "name": "Alice",
+  "city": "Tokyo"
+}</code></pre>
+        <p>单引号、尾随逗号和注释混在一起时，粘贴到<a href="/json-format">JSON格式化工具</a>点“修复”更快。</p>
+
+        <h3>注释</h3>
+        <p>最小复现：</p>
+        <pre><code>{
+  // 用户名
+  "name": "Alice"
+}</code></pre>
+        <p>报错通常包含<code>Expected property name or '}'</code>。</p>
+        <p>修复：标准JSON不支持注释。删除注释，或改用YAML、JSONC、JSON5。浏览器原生<code>JSON.parse</code>不接受注释。需要临时处理时，可以粘贴到<a href="/json-format">JSON格式化工具</a>点“修复”。</p>
+
+        <h3>BOM</h3>
+        <p>最小复现：文件开头有不可见的<code>U+FEFF</code>，十六进制为<code>EF BB BF</code>。</p>
+        <pre><code>\uFEFF{"name":"Alice"}</code></pre>
+        <p>报错位置通常在0，较新V8会引用一个看起来像空白的字符。</p>
+        <p>修复：另存为UTF-8无BOM，或在代码里去掉。</p>
+        <pre><code>const cleaned = text.replace(/^\uFEFF/, '');
+JSON.parse(cleaned);</code></pre>
+        <p>也可以直接粘贴到<a href="/json-format">JSON格式化工具</a>点“修复”。</p>
+
+        <h2 id="others">其他常见写法</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>场景</th><th>示例</th><th>处理</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>未加引号的key</td><td><code>{name:"Alice"}</code></td><td>给key加双引号，可用修复</td></tr>
+              <tr><td>括号不匹配</td><td><code>{"a":[1,2}</code></td><td>补齐<code>]</code>或<code>}</code></td></tr>
+              <tr><td>非法转义</td><td><code>{"path":"C:\Users"}</code></td><td>使用<code>C:\\Users</code>，或用<code>JSON.stringify</code>生成</td></tr>
+              <tr><td>NaN或Infinity</td><td><code>{"n":NaN}</code></td><td>改成<code>null</code>或字符串</td></tr>
+              <tr><td>前导零</td><td><code>{"code":007}</code></td><td>改成<code>7</code></td></tr>
+              <tr><td>Python dict</td><td><code>{'a': True, 'b': None}</code></td><td>本站修复可转标准JSON</td></tr>
+              <tr><td>Java toString</td><td><code>User@hash{id=1}</code></td><td>当前一键修复不处理，先转标准JSON</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="not-syntax">不是语法错：空响应、截断和类型错误</h2>
+        <p>有些<code>Unexpected token</code>并不是JSON语法问题，而是解析之前的数据就错了。</p>
+        <ul>
+          <li><code>Unexpected end of JSON input</code>：空字符串、响应被截断、文件没写完。</li>
+          <li><code>JSON.parse(undefined)</code>：传入<code>undefined</code>，报错里可能包含<code>undefined</code>或旧版<code>u</code>。</li>
+          <li><code>JSON.parse(object)</code>：传入对象，报错里包含<code>[object Object]</code>或旧版<code>o</code>。</li>
+          <li>服务端返回HTML：报错里包含<code>&lt;</code>。</li>
+        </ul>
+        <p>安全的解析顺序是先读文本、看状态码，再解析：</p>
+        <pre><code>const res = await fetch('/api/user');
+const raw = await res.text();
+
+if (!res.ok) {
+  console.error(`HTTP ${res.status}`, raw.slice(0, 200));
+} else if (!raw) {
+  console.error('响应体为空');
+} else {
+  try {
+    const data = JSON.parse(raw);
+  } catch (e) {
+    console.error('JSON解析失败:', e.message, raw.slice(0, 200));
+  }
+}</code></pre>
+
+        <h2 id="avoid">怎么避免再次出现</h2>
+        <ul>
+          <li>用<code>JSON.stringify()</code>生成JSON，不要手拼字符串。</li>
+          <li>解析前先看<code>response.status</code>和<code>Content-Type</code>。</li>
+          <li>先<code>response.text()</code>，打印前200个字符，再<code>JSON.parse</code>。</li>
+          <li>编辑器开启JSON校验，CI加一条<code>python -m json.tool</code>或<code>jq empty</code>。</li>
+          <li>不确定数据来源时，先校验再处理。</li>
+        </ul>
+
+        <h2 id="help">本站怎么帮你</h2>
+        <ul>
+          <li>标出错误所在的行和列。</li>
+          <li>中文提示，不要求读者先理解V8英文文案。</li>
+          <li>一键修复尾随逗号、单引号、注释、未加引号的key、BOM、Python dict、截断JSON。</li>
+          <li>格式化和压缩保留大整数，不会把订单号悄悄改写。</li>
+          <li>数据在浏览器本地处理，不上传服务器。</li>
+          <li>修复需要手动点击，不会自动改用户数据。</li>
+        </ul>
+        <div class="cta-row">
+          <a class="cta-btn" href="/json-validate">定位行列 →</a>
+          <a class="cta-btn secondary" href="/json-format">打开格式化工具 →</a>
+        </div>
+
+        <h2 id="faq">常见问题</h2>
+
+        <div class="faq-item">
+          <h3>Unexpected token &lt;是什么意思？</h3>
+          <p>服务端返回了HTML或XML，不是JSON。常见于接口地址写错、登录态失效被重定向、后端500返回错误页、Nginx或网关改写响应。先看Network里的状态码和Content-Type，不要先改JSON。</p>
+        </div>
+        <div class="faq-item">
+          <h3>Unexpected token o怎么解决？</h3>
+          <p>传给<code>JSON.parse</code>的是一个对象，被隐式转成了<code>[object Object]</code>。如果数据已经是对象，直接使用。如果需要字符串，用<code>JSON.stringify</code>。</p>
+        </div>
+        <div class="faq-item">
+          <h3>Unexpected token u怎么解决？</h3>
+          <p>传入了<code>undefined</code>。常见于<code>localStorage.getItem</code>返回<code>null</code>、接口没有响应体、变量名写错。先判断空值，再解析。</p>
+        </div>
+        <div class="faq-item">
+          <h3>Unexpected token '单引号怎么修？</h3>
+          <p>JSON只允许双引号。把单引号换成双引号，字符串里的撇号需要转义。也可以用本站的一键修复。</p>
+        </div>
+        <div class="faq-item">
+          <h3>JSON可以有注释或尾随逗号吗？</h3>
+          <p>标准JSON不允许。JSONC和JSON5允许注释和尾随逗号，但浏览器原生<code>JSON.parse</code>不支持。需要注释时改用YAML或JSONC工具。</p>
+        </div>
+        <div class="faq-item">
+          <h3>为什么本地能解析，线上报错？</h3>
+          <p>线上可能返回了HTML错误页、被网关改写、编码不同或响应被截断。打印<code>response.status</code>、<code>Content-Type</code>和<code>raw.slice(0, 200)</code>再判断。</p>
+        </div>
+        <div class="faq-item">
+          <h3>修复后大数字会变吗？</h3>
+          <p>本站格式化和压缩使用LosslessJSON，保留原数字。修复后仍建议检查关键ID。转XML时大整数可能不保真，长ID建议先作为字符串处理。</p>
+        </div>
+        <div class="faq-item">
+          <h3>本站会上传我的JSON吗？</h3>
+          <p>格式化、校验、修复在浏览器本地执行，不会主动上传输入内容。页面会加载统计脚本，你可以打开Network面板验证请求。输入默认保存在本机<code>localStorage</code>，公共电脑用完点“清空”。</p>
+        </div>
+
+        <h2 id="related">相关阅读</h2>
+        <ul class="related-list">
+          <li><a href="/courses/debug/">JSON错误排查专题</a>：按报错类型查看全部排查指南。</li>
+          <li><a href="/json-validate">JSON校验工具</a>：粘贴JSON和报错，直接定位行列。</li>
+          <li><a href="/json-format">JSON格式化工具</a>：格式化、压缩和一键修复。</li>
+          <li><a href="/json-parse">JSON解析工具</a>：解析JSON字符串并查看结构。</li>
+          <li><a href="/courses/beginner/json-parse-error">JSON解析错误处理与常见问题</a>：系统排查常见解析错误。</li>
+          <li><a href="/courses/beginner/json-syntax">JSON语法基础</a>：键值对、引号、逗号和括号规则。</li>
+        </ul>
+      </article>
+
+      <aside class="col-md-3 article-sidebar">
+        <div class="side-card">
+          <div class="side-title">相关工具</div>
+          <ul>
+            <li><a href="/json-validate">JSON校验</a></li>
+            <li><a href="/json-format">JSON格式化</a></li>
+            <li><a href="/json-parse">JSON解析</a></li>
+            <li><a href="/json-compress">JSON压缩</a></li>
+            <li><a href="/json-to-xml">JSON转XML</a></li>
+          </ul>
+        </div>
+        <div class="side-card">
+          <div class="side-title">错误排查</div>
+          <ul>
+            <li><a href="/courses/debug/">错误排查专题</a></li>
+            <li class="current">Unexpected token</li>
+            <li><a href="/courses/beginner/json-parse-error">JSON解析错误处理</a></li>
+            <li><a href="/courses/beginner/json-syntax">JSON语法基础</a></li>
+          </ul>
+        </div>
+        <div class="side-card side-cta">
+          <div class="side-title">遇到报错？</div>
+          <p>把JSON和报错一起粘贴到校验工具，直接定位行列。</p>
+          <a class="cta-btn" href="/json-validate">立即校验</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="float_footer">
+    <div id="copyright">
+      &copy; 2021<script>new Date().getFullYear()>2021&&document.write("-"+new Date().getFullYear());</script> <a href="/">JsonTool.cn</a>
+      <span class="foot-links">
+        <a href="/json-format">JSON格式化</a> ·
+        <a href="/json-parse">JSON解析</a> ·
+        <a href="/json-validate">JSON校验</a> ·
+        <a href="/json-compress">JSON压缩</a> ·
+        <a href="/json-to-xml">JSON转XML</a> ·
+        <a href="/courses/">JSON教程</a> ·
+        <a href="/sitemap-page">站点地图</a>
+      </span>
+      <a class="beian-link" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow">浙ICP备2026052185号-1</a> <a class="beian-link gongan-beian" href="https://beian.mps.gov.cn/#/query/webSearch?code=33011002020038" target="_blank" rel="noopener nofollow noreferrer"><img src="/img/police-beian.png" alt="公安备案图标" />浙公网安备33011002020038号</a>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var toggle=document.querySelector('.navbar-toggle');
+      var nav=document.getElementById('navbar');
+      if(!toggle||!nav)return;
+      toggle.addEventListener('click',function(){
+        var open=nav.classList.toggle('in');
+        toggle.setAttribute('aria-expanded',open?'true':'false');
+        toggle.classList.toggle('collapsed',!open);
+      });
+    })();
+  </script>
+  <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+  <script>if(window.LA){LA.init({id:"3QI5NUMVM8jytlw7",ck:"3QI5NUMVM8jytlw7"})}</script>
+</body>
+</html>
